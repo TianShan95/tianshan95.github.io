@@ -5,14 +5,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="网站建设, Hexo">
-    <meta name="description" content="
+    <meta name="description" content="hexo
 如何拉取备份的hexo主题blog并部署
+
 https://www.cnblogs.com/wy0526/p/13070099.html
+
 Posted on 2020-06-09 02:40
 
 
 
-">
+
+mastery
+导航页
+
+h">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -136,6 +142,17 @@ Posted on 2020-06-09 02:40
     
   </li>
   
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Navigate</span>
+    </a>
+    
+  </li>
+  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -233,6 +250,17 @@ Posted on 2020-06-09 02:40
 			    <i class="fa-fw fas fa-address-book"></i>
 			
 			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Navigate
 		</a>
           
         </li>
@@ -470,10 +498,23 @@ Posted on 2020-06-09 02:40
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>如何拉取备份的hexo主题blog并部署<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wy0526/p/13070099.html">https://www.cnblogs.com/wy0526/p/13070099.html</a></li>
-<li>Posted on 2020-06-09 02:40</li>
+                <h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><ul>
+<li><p>如何拉取备份的hexo主题blog并部署</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wy0526/p/13070099.html">https://www.cnblogs.com/wy0526/p/13070099.html</a></p>
+</li>
+<li><p>Posted on 2020-06-09 02:40</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="mastery"><a href="#mastery" class="headerlink" title="mastery"></a>mastery</h2><ul>
+<li><p>导航页</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1798412">https://cloud.tencent.com/developer/article/1798412</a></p>
+</li>
+<li><p>2021-03-08</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -968,11 +1009,11 @@ Posted on 2020-06-09 02:40
     
 
     <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+         style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2022</span>
             
             <a href="/about" target="_blank">田山</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -998,6 +1039,60 @@ Posted on 2020-06-09 02:40
             <br>
 
             <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "1";
+                        var startDate = "19";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
             
             <br>
             
