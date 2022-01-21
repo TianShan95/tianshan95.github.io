@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="网站建设, Hexo">
+    <meta name="keywords" content="网站建设, 田山de博客">
     <meta name="description" content="hexo
 如何拉取备份的hexo主题blog并部署
 
@@ -14,11 +14,7 @@ Posted on 2020-06-09 02:40
 
 
 
-
-mastery
-导航页
-
-h">
+给hexo静态博客添加动态相册">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -30,7 +26,7 @@ h">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>网站建设 | Hexo</title>
+    <title>网站建设 | 田山de博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -57,7 +53,7 @@ h">
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">Hexo</span>
+                    <span class="logo-span">田山de博客</span>
                 </a>
             </div>
             
@@ -144,11 +140,22 @@ h">
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/galleries" class="waves-effect waves-light">
+      
+      <i class="fas fa-images" style="zoom: 0.6;"></i>
+      
+      <span>相册</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/navigate" class="waves-effect waves-light">
       
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      <i class="fas fa-fighter-jet" style="zoom: 0.6;"></i>
       
-      <span>Navigate</span>
+      <span>导航</span>
     </a>
     
   </li>
@@ -167,7 +174,7 @@ h">
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">Hexo</div>
+        <div class="logo-name">田山de博客</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -256,11 +263,22 @@ h">
         
         <li class="m-nav-item">
 	  
+		<a href="/galleries" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-images"></i>
+			
+			相册
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
 		<a href="/navigate" class="waves-effect waves-light">
 			
-			    <i class="fa-fw fas fa-address-book"></i>
+			    <i class="fa-fw fas fa-fighter-jet"></i>
 			
-			Navigate
+			导航
 		</a>
           
         </li>
@@ -507,6 +525,18 @@ h">
 </li>
 </ul>
 </li>
+<li><p>给hexo静态博客添加动态相册功能</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://flycode.co/post/73ad4183.html">http://flycode.co/post/73ad4183.html</a></li>
+<li>发表2019-5-7更新2019-5-17</li>
+</ul>
+</li>
+<li><p>设置菜单图标</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://hudisk.tpddns.cn:4000/20200203101945/">http://hudisk.tpddns.cn:4000/20200203101945/</a></li>
+<li>2020-02-03|更新于2020-01-04</li>
+</ul>
+</li>
 </ul>
 <h2 id="mastery"><a href="#mastery" class="headerlink" title="mastery"></a>mastery</h2><ul>
 <li><p>导航页</p>
@@ -517,8 +547,30 @@ h">
 </li>
 </ul>
 </li>
+<li><p>相册</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://liyangzone.com/2019/07/22/hexo%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E4%B8%80%E7%BA%A7%E5%88%86%E7%B1%BB%E7%9B%B8%E5%86%8C/">https://liyangzone.com/2019/07/22/hexo%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E4%B8%80%E7%BA%A7%E5%88%86%E7%B1%BB%E7%9B%B8%E5%86%8C/</a></li>
+<li>2019-07-22</li>
 </ul>
-
+</li>
+</ul>
+<h1 id="网页规划"><a href="#网页规划" class="headerlink" title="网页规划"></a>网页规划</h1><ul>
+<li>软件下载<ul>
+<li>实现的功能<ul>
+<li>创建一个软件页面</li>
+<li>链接跳转下载</li>
+<li>软件存储到七牛云</li>
+</ul>
+</li>
+<li>问题<ul>
+<li>域名问题：七牛云的访问数据存储的外链如果是.dmg .exe等特殊文件需要使用自己的域名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>图片展示页面</li>
+</ul>
+<h1 id="网页创作历史"><a href="#网页创作历史" class="headerlink" title="网页创作历史"></a>网页创作历史</h1>
                 
             </div>
             <hr/>
@@ -1304,7 +1356,13 @@ $(function () {
     
 
     
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
 
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     
