@@ -519,6 +519,25 @@ Swin Transformer
 </ul>
 </li>
 </ul>
+<h1 id="2022-02-06"><a href="#2022-02-06" class="headerlink" title="2022-02-06"></a>2022-02-06</h1><ul>
+<li>MAE<ul>
+<li>论文：这里借鉴BERT使用Transfomer来对图片做掩码（完形填空），最终从剩下的块里学出图像特征，然后恢复。这里作者指出与BERT不同的是，在NLP领域做掩码，盖住的是一个完整的词，几乎是包含有完整的语义信息，图像的掩码恢复是更有难度的</li>
+<li>想法：在车辆报文如果做掩码遮住，和图像类似，遮住的是一部分，并不包含一定完整信息</li>
+</ul>
+</li>
+</ul>
+<h1 id="2022-02-07"><a href="#2022-02-07" class="headerlink" title="2022-02-07"></a>2022-02-07</h1><ul>
+<li><p>AlphaFlod-2</p>
+<ul>
+<li>论文：算法7 有sigmoid作用的门控制多头自注意力的输出（不会放出的元素，让sigmoid输出零，从而控制输出）</li>
+<li>想法：在卷积网络和图网络的特征合并，然后通过门控网络控制特征元素的输出</li>
+<li>论文：算法7 做完按行的 k 、q自注意力，又添加了氨基酸对的bias</li>
+<li>想法：把图神经网络的输出当作bias加入到卷积网络</li>
+</ul>
+</li>
+<li><p>可否通过随机遮住部分做数据增强</p>
+</li>
+</ul>
 
                 
             </div>
@@ -754,18 +773,17 @@ Swin Transformer
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/02/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%88%9B%E6%96%B0/">
+                <a href="/2022/02/17/%E8%BD%A6%E8%BE%86CAN%E6%95%B0%E6%8D%AE%E9%9B%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="车辆CAN数据集">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">车辆CAN数据集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -775,9 +793,9 @@ Swin Transformer
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-17
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -786,7 +804,6 @@ Swin Transformer
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
