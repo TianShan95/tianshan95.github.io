@@ -530,6 +530,18 @@ gcn v1ssh登陆服务git服务
 <h1 id="创建容器命令："><a href="#创建容器命令：" class="headerlink" title="创建容器命令："></a>创建容器命令：</h1><p>容器执行代码<br>sudo docker run -it –name onlyGraph3 -p 1022:22 -v /home/tianshan/WorkSpace/_share:/home/workspace/_share –shm-size=2g –gpus all onlygraph:v2</p>
 <p>远程pycharm调试代码<br>创建容器命令注释<br>sudo docker run -it –name Graph \  # 容器命名<br>-p 1022:22 \  # ssh 端口<br>-p 1088:8888 \  # jupyter 端口<br>-v /home/tianshan/WorkSpace/_share/GCN/data:/tmp/data <br>-v /home/tianshan/WorkSpace/_share/GCN/experiment:/tmp/experiment <br>-v /home/tianshan/WorkSpace/_share:/home/workspace/_share <br>–shm-size=2g –gpus all onlygraph:v2</p>
 <p>sudo docker run -it –name gcn0 <br>-p 10022:22 <br>-p 10020:50020 <br>-p 10021:21 <br>-p 1088:8888 <br>-v /etc/timezone:/etc/timezone <br>-v /etc/localtime:/etc/localtime <br>-v /home/tianshan/WorkSpace/_share/docker0_tmp:/tmp <br>-v /home/tianshan/WorkSpace/_share/paper_01_souce_code/data:/tmp/data <br>-v /home/tianshan/WorkSpace/_share/paper_01_souce_code/experiment:/tmp/experiment <br>-v /home/tianshan/WorkSpace/_share:/home/workspace/_share <br>–shm-size=2g –gpus all gcn:v5</p>
+<h1 id="从镜像创建容器"><a href="#从镜像创建容器" class="headerlink" title="从镜像创建容器"></a>从镜像创建容器</h1><p>sudo docker run -d  –name container_name -it image_name /bin/bash </p>
+<p>sudo docker run -d  –name container_name  –net host  –gpus all -it image_name /bin/bash </p>
+<p>sudo docker run -d  –name nasg02  –net host  –cpus 4 –shm-size=32G –gpus all -it ubuntu /bin/bash </p>
+<p>sudo docker run -d  –name nasg02  –net host  –shm-size=32G –gpus all -it 【ubuntu】 /bin/bash \</p>
+<p>-v /home/tianshan/WorkSpace/_share/docker_nasg_tmp:/tmp \</p>
+<ul>
+<li>–net host 与宿主机端口保持一致</li>
+<li>-p 宿主机端口:docker端口</li>
+<li>–gpus all 对docker可见gpu</li>
+</ul>
+<h1 id="查看docker内存"><a href="#查看docker内存" class="headerlink" title="查看docker内存"></a>查看docker内存</h1><p>cat /proc/meminfo</p>
+<h1 id="如何优雅的退出容器"><a href="#如何优雅的退出容器" class="headerlink" title="如何优雅的退出容器"></a>如何优雅的退出容器</h1><p>按“Ctrl+P+Q”按钮退出容器，即可正常退出不关闭容器</p>
 <h1 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h1><p>docker rm 容器名</p>
 <p>python main.py –train_epoch=50<br>没有试过的方法：<br>给运行中的容器修改 /dev/shm 大小 <a target="_blank" rel="noopener" href="https://blog.csdn.net/iteye_4064/article/details/82679418">https://blog.csdn.net/iteye_4064/article/details/82679418</a></p>
 <h1 id="关于bash"><a href="#关于bash" class="headerlink" title="关于bash"></a>关于bash</h1><ul>
@@ -537,6 +549,9 @@ gcn v1ssh登陆服务git服务
 </ul>
 <h1 id="用户登录"><a href="#用户登录" class="headerlink" title="用户登录"></a>用户登录</h1><ul>
 <li>创建非root用户登录<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040466843">https://segmentfault.com/a/1190000040466843</a><br><a target="_blank" rel="noopener" href="https://keykernel.org/2018/05/13/docker-run-in-user/">https://keykernel.org/2018/05/13/docker-run-in-user/</a></li>
+</ul>
+<h1 id="容器使用宿主机的代理配置"><a href="#容器使用宿主机的代理配置" class="headerlink" title="容器使用宿主机的代理配置"></a>容器使用宿主机的代理配置</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://kebingzao.com/2019/02/22/docker-container-proxy/">https://kebingzao.com/2019/02/22/docker-container-proxy/</a></li>
 </ul>
 
                 
@@ -979,7 +994,7 @@ gcn v1ssh登陆服务git服务
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022</span>
+                <span id="year">2022-2023</span>
             
             <a href="/about" target="_blank">田山</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

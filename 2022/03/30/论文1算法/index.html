@@ -571,6 +571,24 @@
 <li><input disabled="" type="checkbox"> 2022-04-29 21:32:32 是否把 图卷积的每一层的隐藏层作为搜索空间的一部分 （目前没有）</li>
 <li><input disabled="" type="checkbox"> 2022-05-01 16:03:17 是否把 训练的batchsize作为搜索空间搜索 （目前没有）</li>
 </ul>
+<h1 id="卷积部分"><a href="#卷积部分" class="headerlink" title="卷积部分"></a>卷积部分</h1><ul>
+<li>由于图像边界点卷积（边界点参与的计算次数少）问题，是否需要在生成的01二进制图卷积时对二进制图像进行padding</li>
+<li>可否可以合并几位数据做加和在归一化然后做入侵识别</li>
+<li>卷积实验可以对比一下VGG</li>
+<li>2022-08-12 21:04:45 <strong>把每个报文使用一个向量来表示</strong></li>
+</ul>
+<h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><ul>
+<li>增加状态表示的信息</li>
+<li>可视化输入到强化学习的向量，看是否发生了明显的变化</li>
+<li>当奖励累计到一定的负值则重新开始</li>
+<li>Reward 归一化了</li>
+</ul>
+<h2 id="知识归纳"><a href="#知识归纳" class="headerlink" title="知识归纳"></a>知识归纳</h2><ul>
+<li>PPO的前身是TRPO</li>
+</ul>
+<h2 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h2><ul>
+<li>无法应对比较新的模式，可以玩当前游戏，无法适应新游戏–</li>
+</ul>
 <h1 id="数据集部分"><a href="#数据集部分" class="headerlink" title="数据集部分"></a>数据集部分</h1><h2 id="数据集命名"><a href="#数据集命名" class="headerlink" title="数据集命名"></a>数据集命名</h2><h3 id="Car-Hacking-Challenge-Dataset-rev20Mar2021"><a href="#Car-Hacking-Challenge-Dataset-rev20Mar2021" class="headerlink" title="Car_Hacking_Challenge_Dataset_rev20Mar2021"></a>Car_Hacking_Challenge_Dataset_rev20Mar2021</h3><pre class="line-numbers language-none"><code class="language-none">datadir&#x3D;&#39;..&#x2F;data&#x2F;Car_Hacking_Challenge_Dataset_rev20Mar2021&#x2F;0_Preliminary&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
@@ -745,7 +763,10 @@
 <li>今天的车辆系统嵌入了许多称为电子控制单元（ECU）的计算机设备来控制和监控子系统【1】。ECU通过车内网络相互通信，以促进先进的汽车应用，如carputer和自动驾驶服务。控制器局域网（CAN）[2]提供了一种简单可靠的通信协议，作为车辆网络的设计标准，不仅连接传感器和控制器，而且连接互联网。随着车对车（V2V）和车对基础设施（V2I）通信接口的出现，CAN的采用加快了应用程序的速度[3]。然而，车辆系统的开放性增加了恶意网络攻击的风险，这些攻击可能会严重损害人的生命。车辆网络中的保护机制关注新的安全威胁。</li>
 </ul>
 <h1 id="卷积遗传算法部分"><a href="#卷积遗传算法部分" class="headerlink" title="卷积遗传算法部分"></a>卷积遗传算法部分</h1><ul>
-<li>交叉过后，有重复个体</li>
+<li><p>交叉过后，有重复个体</p>
+</li>
+<li><p>2022-08-11 23:17:08 搜索损失函数</p>
+</li>
 </ul>
 <h1 id="关于写作时的问题"><a href="#关于写作时的问题" class="headerlink" title="关于写作时的问题"></a>关于写作时的问题</h1><ol>
 <li><p>论文中只有图坍缩部分出现坍缩过程的公式，因为只有这里有公式所以就保留着了，但是这里坍缩的过程是参考的之前的论文</p>
@@ -762,6 +783,34 @@
 <h2 id="图神经网络"><a href="#图神经网络" class="headerlink" title="图神经网络"></a>图神经网络</h2><ul>
 <li>遗传算法优化图网络<br>最近，神经架构搜索（NAS）吸引了越来越多的研究兴趣[2]。如图1所示，GNNs体系结构中有许多组件，如注意、聚合和激活功能，它们构成了图形神经网络的搜索空间。架构搜索算法从搜索空间中对组件的组合进行采样𝑆 例如{𝑔 𝑎𝑡,𝑠𝑢𝑚,𝑡𝑎𝑛ℎ, …} 在本例中，作为GNNs体系结构𝑠. 架构（architecture）𝑠 通过性能评估策略进一步评估。搜索算法使用估计的性能从搜索空间生成新的更好的GNNs体系结构𝑆. 最近，一些研究集中在图神经结构搜索问题上。</li>
 </ul>
+<h1 id="2022-08-18-修改论文"><a href="#2022-08-18-修改论文" class="headerlink" title="2022-08-18 修改论文"></a>2022-08-18 修改论文</h1><ul>
+<li>目前论文中使用到的演化算法部分是在神经架构搜索上，卷积网络，图神经网络架构搜索</li>
+<li>增加其他的演化算法应用场景，并加入改进思想</li>
+<li>演化算法是一种优化算法，求最优的算法</li>
+<li>我的目的是得到最优的神经网络架构，每次采样的最优数据长度（强化学习解决）</li>
+<li>在优化神经架构方面提出创新点</li>
+</ul>
+<h2 id="加入演化算法创新增加入侵检测率和降低模型复杂度"><a href="#加入演化算法创新增加入侵检测率和降低模型复杂度" class="headerlink" title="加入演化算法创新增加入侵检测率和降低模型复杂度"></a>加入演化算法创新增加入侵检测率和降低模型复杂度</h2><ul>
+<li>目前可以直接入手的改进是提升入侵识别精度（）—降低模型复杂度（）</li>
+<li>更好的提取图特征和二进制图像特征</li>
+<li>演化算法中的动态环境如何考虑</li>
+</ul>
+<h2 id="初始化子种群的创新"><a href="#初始化子种群的创新" class="headerlink" title="初始化子种群的创新"></a>初始化子种群的创新</h2><ul>
+<li>基于多个中心点初始化子种群</li>
+</ul>
+<h1 id="介绍部分"><a href="#介绍部分" class="headerlink" title="介绍部分"></a>介绍部分</h1><ul>
+<li>大体介绍图网络的应用和原理</li>
+</ul>
+<h1 id="多目标演化图神经-论文内容和参考"><a href="#多目标演化图神经-论文内容和参考" class="headerlink" title="(多目标演化图神经)论文内容和参考"></a>(多目标演化图神经)论文内容和参考</h1><ol>
+<li>搜索空间参考 2020-Neural Architecture Search in Graph Neural Networks</li>
+<li>添加跳跃连接  2020-AutoGraph Automated Graph Neural Network</li>
+</ol>
+<h1 id="TEVC参考文献阅读"><a href="#TEVC参考文献阅读" class="headerlink" title="TEVC参考文献阅读"></a>TEVC参考文献阅读</h1><h2 id="2022-Evolutionary-Search-for-Complete-Neural-Network-Architectures-With-Partial-Weight-Sharing"><a href="#2022-Evolutionary-Search-for-Complete-Neural-Network-Architectures-With-Partial-Weight-Sharing" class="headerlink" title="2022-Evolutionary Search for Complete Neural Network Architectures With Partial Weight Sharing"></a>2022-Evolutionary Search for Complete Neural Network Architectures With Partial Weight Sharing</h2><h3 id="好想法-好表达"><a href="#好想法-好表达" class="headerlink" title="好想法+好表达"></a>好想法+好表达</h3><ol>
+<li>However, the full weight sharing training paradigm in OSNAS may result in strong interference across candidate architectures and mislead the architecture search.<h3 id="好表达"><a href="#好表达" class="headerlink" title="好表达"></a>好表达</h3></li>
+<li>As a result, optimal networks obtained by Evo-OSNAS can achieve more competitive performance than the state-of-the-art networks found by existing NAS algorithms.</li>
+<li>NAS can be viewed as a bilevel optimization problem and mathematically formulated as follows: train valid</li>
+<li>RL-based NAS methods adopt a controller to sample a new candidate network to be trained and its performance is used as the reward score. Then, the reward score can be adopted to update the controller for sampling a better candidate network in the next iteration.</li>
+</ol>
 
                 
             </div>
@@ -1203,7 +1252,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022</span>
+                <span id="year">2022-2023</span>
             
             <a href="/about" target="_blank">田山</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
