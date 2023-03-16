@@ -4,13 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="田山de博客">
-    <meta name="description" content="tr [选项]… SET1 [SET2]
-选项包括下面的:
+    <meta name="keywords" content="Bash-截取括号内内容, 田山de博客">
+    <meta name="description" content="
+使用grep（结果带括号，不知道有没有办法仅把括号中的内容匹配出来）
+$a=&#39;abc[edg]adfirpqu&#39;
+$echo $a|grep -o &#39;\[.*\]&#39; #中括号的处理需要转义
+[edg]
+    
 
-  -c, -C, –complement 首先补足SET1
-  -d, –delete 删除匹配SET1 的内容，并不作替换
-  -s, –squeeze-repeats 如果">
+$b=&#39;abc(edg)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +24,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>田山de博客</title>
+    <title>Bash-截取括号内内容 | 田山de博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -358,12 +360,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Bash-截取括号内内容</h1>
                 </div>
             </div>
         </div>
@@ -491,7 +493,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-03-16
+                    2023-03-15
                 </div>
                 
 
@@ -515,15 +517,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>tr [选项]… SET1 [SET2]</p>
-<p>选项包括下面的:</p>
-<ul>
-<li>  -c, -C, –complement 首先补足SET1</li>
-<li>  -d, –delete 删除匹配SET1 的内容，并不作替换</li>
-<li>  -s, –squeeze-repeats 如果匹配于SET1 的字符在输入序列中存在连续的重复，在替换时会被统一缩为一个字符的长度</li>
-</ul>
-<p>SET1包括：</p>
-<p>\NNN 八进制值为NNN 的字符(1 至3 个数位)<br>\ 反斜杠<br>\a 终端鸣响<br>\b 退格<br>\f 换页<br>\n 换行<br>\r 回车<br>\t 水平制表符<br>\v 垂直制表符<br>字符1-字符2 从字符1 到字符2 的升序递增过程中经历的所有字符<br>[字符*] 在SET2 中适用，指定字符会被连续复制直到吻合设置1 的长度<br>[字符*次数] 对字符执行指定次数的复制，若次数以 0 开头则被视为八进制数<br>[:alnum:] 所有的字母和数字<br>[:alpha:] 所有的字母<br>[:blank:] 所有呈水平排列的空白字符<br>[:cntrl:] 所有的控制字符<br>[:digit:] 所有的数字<br>[:graph:] 所有的可打印字符，不包括空格<br>[:lower:] 所有的小写字母<br>[:print:] 所有的可打印字符，包括空格<br>[:punct:] 所有的标点字符<br>[:space:] 所有呈水平或垂直排列的空白字符<br>[:upper:] 所有的大写字母<br>[:xdigit:] 所有的十六进制数<br>[=字符=] 所有和指定字符相等的字符</p>
+                <ol>
+<li><p>使用grep（结果带括号，不知道有没有办法仅把括号中的内容匹配出来）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token variable">$a</span><span class="token operator">=</span><span class="token string">'abc[edg]adfirpqu'</span>
+<span class="token variable">$echo</span> <span class="token variable">$a</span><span class="token operator">|</span><span class="token function">grep</span> -o <span class="token string">'\[.*\]'</span> <span class="token comment">#中括号的处理需要转义</span>
+<span class="token punctuation">[</span>edg<span class="token punctuation">]</span>
+    
+
+<span class="token variable">$b</span><span class="token operator">=</span><span class="token string">'abc(edg)adfirpqu'</span>
+<span class="token variable">$echo</span> <span class="token variable">$b</span><span class="token operator">|</span><span class="token function">grep</span> -o <span class="token string">'(.*)'</span>
+ <span class="token punctuation">(</span>edg<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p> 使用cut</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token variable">$a</span><span class="token operator">=</span><span class="token string">'abc[edg]adfirpqu'</span>
+<span class="token variable">$echo</span> <span class="token variable">$a</span><span class="token operator">|</span><span class="token function">cut</span> -d <span class="token string">'['</span> -f2<span class="token operator">|</span><span class="token function">cut</span> -d <span class="token string">']'</span> -f1
+edg
+    
+
+<span class="token variable">$b</span><span class="token operator">=</span><span class="token string">'abc(edg)adfirpqu'</span>
+<span class="token variable">$echo</span> <span class="token variable">$a</span><span class="token operator">|</span><span class="token function">cut</span> -d <span class="token string">'('</span> -f2<span class="token operator">|</span><span class="token function">cut</span> -d <span class="token string">')'</span> -f1
+edg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>使用字符串截取</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token variable">$a</span><span class="token operator">=</span><span class="token string">'abc[edg]adfjaierqpwe'</span>
+<span class="token variable">$b</span><span class="token operator">=</span><span class="token variable">$&#123;a<span class="token operator">#</span>*<span class="token punctuation">[</span>&#125;</span>
+<span class="token variable">$echo</span> <span class="token variable">$b</span>
+edg<span class="token punctuation">]</span>adfjaierqpwe`
+
+
+<span class="token variable">$c</span><span class="token operator">=</span><span class="token variable">$&#123;b<span class="token operator">%</span><span class="token punctuation">]</span>*&#125;</span>
+<span class="token variable">$echo</span> <span class="token variable">$c</span>
+edg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
 
                 
             </div>
@@ -550,7 +573,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/03/16/Bash/tr/">http://example.com/2023/03/16/Bash/tr/</a>
+                    <a href="http://example.com/2023/03/15/Bash/Bash-%E6%88%AA%E5%8F%96%E6%8B%AC%E5%8F%B7%E5%86%85%E5%86%85%E5%AE%B9/">http://example.com/2023/03/15/Bash/Bash-%E6%88%AA%E5%8F%96%E6%8B%AC%E5%8F%B7%E5%86%85%E5%86%85%E5%AE%B9/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -763,13 +786,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/16/Bash/grep/">
+                <a href="/2023/03/15/Bash/Bash-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Bash-字符串比较">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Bash-字符串比较</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -780,7 +803,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
                         </span>
                         <span class="publish-author">
                             
@@ -800,13 +823,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/16/Bash/sed/">
+                <a href="/2023/03/15/Bash/Bash-%E6%95%B0%E7%BB%84/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Bash-数组">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Bash-数组</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -817,7 +840,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
                             </span>
                         <span class="publish-author">
                             

@@ -4,18 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="田山de博客">
-    <meta name="description" content="
-遍历列表值
-for i in $&amp;#123;a[*]&amp;#125;; 
-do  
-	echo ”$i“
-done
-数组
-### Shell 数组元素个数
-$&amp;#123;#array[@]&amp;#125;
-###数组的所有元素
-$&amp;#123;ar">
+    <meta name="keywords" content="Bash-字符串比较, 田山de博客">
+    <meta name="description" content="包含子字符串#!/bin/bash
+#
+string=&#39;hello world&#39;
+sub=&#39;hello&#39;
+
+if [[ $string =~ $sub ]]
+# if [[ $string = *$sub* ]]
+# if [[ $stri">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -27,7 +24,7 @@ $&amp;#123;ar">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>田山de博客</title>
+    <title>Bash-字符串比较 | 田山de博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -363,12 +360,12 @@ $&amp;#123;ar">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Bash-字符串比较</h1>
                 </div>
             </div>
         </div>
@@ -496,7 +493,7 @@ $&amp;#123;ar">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-03-16
+                    2023-03-15
                 </div>
                 
 
@@ -520,23 +517,46 @@ $&amp;#123;ar">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ol>
-<li><p>遍历列表值</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable">$&#123;a<span class="token punctuation">[</span>*<span class="token punctuation">]</span>&#125;</span><span class="token punctuation">;</span> 
-<span class="token keyword">do</span>  
-	<span class="token builtin class-name">echo</span> ”<span class="token variable">$i</span>“
-<span class="token keyword">done</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>数组</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">### Shell 数组元素个数</span>
-<span class="token variable">$&#123;<span class="token operator">#</span>array<span class="token punctuation">[</span>@<span class="token punctuation">]</span>&#125;</span>
-<span class="token comment">###数组的所有元素</span>
-<span class="token variable">$&#123;array<span class="token punctuation">[</span>*<span class="token punctuation">]</span>&#125;</span>
-<span class="token comment">###字符串长度</span>
-<span class="token variable">$&#123;<span class="token operator">#</span>str&#125;</span>
-<span class="token comment">### 数组结尾添加元素</span>
-array<span class="token punctuation">[</span><span class="token variable">$&#123;<span class="token operator">#</span>array<span class="token punctuation">[</span>@<span class="token punctuation">]</span>&#125;</span><span class="token punctuation">]</span><span class="token operator">=</span>element<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
+                <h3 id="包含子字符串"><a href="#包含子字符串" class="headerlink" title="包含子字符串"></a>包含子字符串</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment">#</span>
+<span class="token assign-left variable">string</span><span class="token operator">=</span><span class="token string">'hello world'</span>
+<span class="token assign-left variable">sub</span><span class="token operator">=</span><span class="token string">'hello'</span>
 
+<span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">$string</span> <span class="token operator">=~</span> <span class="token variable">$sub</span> <span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token comment"># if [[ $string = *$sub* ]]</span>
+<span class="token comment"># if [[ $string =~ ^.*$sub.*$ ]] # 正则表达式</span>
+<span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">'包含'</span>
+<span class="token keyword">else</span> 
+    <span class="token builtin class-name">echo</span> <span class="token string">'不包含'</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="以某个字符串作为开始"><a href="#以某个字符串作为开始" class="headerlink" title="以某个字符串作为开始"></a>以某个字符串作为开始</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment">#</span>
+<span class="token assign-left variable">string</span><span class="token operator">=</span><span class="token string">'hello world'</span>
+<span class="token assign-left variable">sub</span><span class="token operator">=</span><span class="token string">'hello'</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">$string</span> <span class="token operator">=</span> <span class="token variable">$sub</span>* <span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token comment">#if [[ $string =~ ^$sub.*$ ]] # 正则表达式</span>
+<span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">'YES'</span>
+<span class="token keyword">else</span> 
+    <span class="token builtin class-name">echo</span> <span class="token string">'NO'</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="以某个字符串作为结束"><a href="#以某个字符串作为结束" class="headerlink" title="以某个字符串作为结束"></a>以某个字符串作为结束</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment">#</span>
+<span class="token assign-left variable">string</span><span class="token operator">=</span><span class="token string">'hello world'</span>
+<span class="token assign-left variable">sub</span><span class="token operator">=</span><span class="token string">'world'</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">$string</span> <span class="token operator">=</span> *<span class="token variable">$sub</span> <span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token comment">#if [[ $string =~ ^.*$sub$ ]] # 正则表达式</span>
+<span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">'YES'</span>
+<span class="token keyword">else</span> 
+    <span class="token builtin class-name">echo</span> <span class="token string">'NO'</span>
+<span class="token keyword">fi</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -562,7 +582,7 @@ array<span class="token punctuation">[</span><span class="token variable">$&#123
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/03/16/Bash/Bash%E6%95%B0%E7%BB%84/">http://example.com/2023/03/16/Bash/Bash%E6%95%B0%E7%BB%84/</a>
+                    <a href="http://example.com/2023/03/15/Bash/Bash-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83/">http://example.com/2023/03/15/Bash/Bash-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -775,13 +795,13 @@ array<span class="token punctuation">[</span><span class="token variable">$&#123
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/16/Bash/Bash%E5%AD%97%E5%85%B8/">
+                <a href="/2023/03/15/Bash/Bash-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Bash-字符串操作">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Bash-字符串操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -792,7 +812,7 @@ array<span class="token punctuation">[</span><span class="token variable">$&#123
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
                         </span>
                         <span class="publish-author">
                             
@@ -812,13 +832,13 @@ array<span class="token punctuation">[</span><span class="token variable">$&#123
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/16/Bash/find/">
+                <a href="/2023/03/15/Bash/Bash-%E6%88%AA%E5%8F%96%E6%8B%AC%E5%8F%B7%E5%86%85%E5%86%85%E5%AE%B9/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Bash-截取括号内内容">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Bash-截取括号内内容</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -829,7 +849,7 @@ array<span class="token punctuation">[</span><span class="token variable">$&#123
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
                             </span>
                         <span class="publish-author">
                             

@@ -4,8 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="田山de博客">
-    <meta name="description" content="awk BEGIN {FS=&amp;quot;6432:&amp;quot;;count=0}{pci_dev_version[count]=$NF;count++} END{for(t in pci_dev_version){prtnt pci_dev">
+    <meta name="keywords" content="Bash-数组, 田山de博客">
+    <meta name="description" content="
+遍历列表值
+for i in $&amp;#123;a[*]&amp;#125;; 
+do  
+	echo ”$i“
+done
+数组
+### Shell 数组元素个数
+$&amp;#123;#array[@]&amp;#125;
+###数组的所有元素
+$&amp;#123;ar">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +27,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>田山de博客</title>
+    <title>Bash-数组 | 田山de博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -353,12 +363,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Bash-数组</h1>
                 </div>
             </div>
         </div>
@@ -486,7 +496,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-03-16
+                    2023-03-15
                 </div>
                 
 
@@ -510,7 +520,22 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>awk BEGIN {FS=&quot;6432:&quot;;count=0}{pci_dev_version[count]=$NF;count++} END{for(t in pci_dev_version){prtnt pci_dev_verston[t]}}</p>
+                <ol>
+<li><p>遍历列表值</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable">$&#123;a<span class="token punctuation">[</span>*<span class="token punctuation">]</span>&#125;</span><span class="token punctuation">;</span> 
+<span class="token keyword">do</span>  
+	<span class="token builtin class-name">echo</span> ”<span class="token variable">$i</span>“
+<span class="token keyword">done</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>数组</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">### Shell 数组元素个数</span>
+<span class="token variable">$&#123;<span class="token operator">#</span>array<span class="token punctuation">[</span>@<span class="token punctuation">]</span>&#125;</span>
+<span class="token comment">###数组的所有元素</span>
+<span class="token variable">$&#123;array<span class="token punctuation">[</span>*<span class="token punctuation">]</span>&#125;</span>
+<span class="token comment">###字符串长度</span>
+<span class="token variable">$&#123;<span class="token operator">#</span>str&#125;</span>
+<span class="token comment">### 数组结尾添加元素</span>
+array<span class="token punctuation">[</span><span class="token variable">$&#123;<span class="token operator">#</span>array<span class="token punctuation">[</span>@<span class="token punctuation">]</span>&#125;</span><span class="token punctuation">]</span><span class="token operator">=</span>element<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
 
                 
             </div>
@@ -537,7 +562,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/03/16/Bash/AWK/">http://example.com/2023/03/16/Bash/AWK/</a>
+                    <a href="http://example.com/2023/03/15/Bash/Bash-%E6%95%B0%E7%BB%84/">http://example.com/2023/03/15/Bash/Bash-%E6%95%B0%E7%BB%84/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -750,13 +775,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/16/Bash/find/">
+                <a href="/2023/03/15/Bash/Bash-%E6%88%AA%E5%8F%96%E6%8B%AC%E5%8F%B7%E5%86%85%E5%86%85%E5%AE%B9/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Bash-截取括号内内容">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Bash-截取括号内内容</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -767,7 +792,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
                         </span>
                         <span class="publish-author">
                             
@@ -787,13 +812,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/11/17/DeepLearning/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/">
+                <a href="/2023/03/15/Bash/Bash-%E7%A8%8B%E5%BA%8F%E6%B5%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="深度学习环境配置问题">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Bash-程序流">
                         
-                        <span class="card-title">深度学习环境配置问题</span>
+                        <span class="card-title">Bash-程序流</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -804,7 +829,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
                             </span>
                         <span class="publish-author">
                             
