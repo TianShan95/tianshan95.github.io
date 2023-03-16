@@ -1,0 +1,1667 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="田山de博客">
+    <meta name="description" content="TEVC2022-Evolutionary Search for Complete Neural Network Architectures With Partial Weight Sharing优劣分析
+However, the full">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>田山de博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">田山de博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/galleries" class="waves-effect waves-light">
+      
+      <i class="fas fa-images" style="zoom: 0.6;"></i>
+      
+      <span>相册</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-fighter-jet" style="zoom: 0.6;"></i>
+      
+      <span>导航</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">田山de博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/galleries" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-images"></i>
+			
+			相册
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-fighter-jet"></i>
+			
+			导航
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-03-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="TEVC"><a href="#TEVC" class="headerlink" title="TEVC"></a>TEVC</h2><h2 id="2022-Evolutionary-Search-for-Complete-Neural-Network-Architectures-With-Partial-Weight-Sharing"><a href="#2022-Evolutionary-Search-for-Complete-Neural-Network-Architectures-With-Partial-Weight-Sharing" class="headerlink" title="2022-Evolutionary Search for Complete Neural Network Architectures With Partial Weight Sharing"></a>2022-Evolutionary Search for Complete Neural Network Architectures With Partial Weight Sharing</h2><h3 id="优劣分析"><a href="#优劣分析" class="headerlink" title="优劣分析"></a>优劣分析</h3><ol>
+<li>However, the full weight sharing training paradigm in OSNAS may result in strong interference across candidate architectures and mislead the architecture search. #局限-权重继承</li>
+<li>The efﬁciency of performance estimation of the candidate architectures is therefore greatly enhanced because it avoids training a large number of candidate models from scratch.<br>oneshot可以不用反复训练的优势。我的论文基于块的节点继承，大部分研究为了减少评估运算量使用的是整个 #优势-权重继承</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>虽然本文应用了oneshot，本文的搜索空间涉及不同的操作类型，<mark>每一层的都固定一种类型的的操作，每次选择时选中，则直接继承，从而实现oneshot，但是一开始无法训练所有情况的模块，则需要设计一个模块库。交叉我们也可以使用两阶段，GNN层面和layer层面。然后变异根据库内的情况，增加个体多样性。</mark></li>
+<li>oneshot网络</li>
+<li>有结构基因和switch基因两种</li>
+<li>演化部分是交叉是分别交叉两种基因然后switch基因直接完整继承一个亲本</li>
+<li>使用了离散多项式变异</li>
+<li>oneshot模型训练，设置开关基因来决定每个cell是否参与训练（可参考）</li>
+</ol>
+<h2 id="2021-Evolutionary-Neural-Architecture-Search-for-High-Dimensional-Skip-Connection-Structures-on-DenseNet-Style-Networks"><a href="#2021-Evolutionary-Neural-Architecture-Search-for-High-Dimensional-Skip-Connection-Structures-on-DenseNet-Style-Networks" class="headerlink" title="2021-Evolutionary Neural Architecture Search for High-Dimensional Skip-Connection Structures on DenseNet Style Networks"></a>2021-Evolutionary Neural Architecture Search for High-Dimensional Skip-Connection Structures on DenseNet Style Networks</h2><ol>
+<li>Furthermore, while many neural architecture search algorithms utilize performance estimation techniques to reduce computation time, empirical evaluations of these performance estimation techniques remain limited. 此外，尽管许多神经架构搜索算法利用性能估计技术来减少计算时间，但这些性能估计技术的经验评估仍然有限。 #局限-性能评估</li>
+<li>这项工作侧重于利用进化神经架构搜索来检查网络的搜索空间，这些网络遵循基本的DenseNet结构，但没有固定的跳过连接。</li>
+<li>Genetic CNN was highly computationally expensive. #局限-复杂度高</li>
+<li>The structures found by the algorithm are examined to shed light on the importance of different types of skip-connection structures in convolutional neural networks, including the discovery of a simple skip-connection removal, which improves DenseNet performance on CIFAR10.对算法发现的结构进行了检查，以阐明卷积神经网络中不同类型的跳过连接结构的重要性，包括发现了一种简单的跳过连接移除，这提高了CIFAR10上的DenseNet性能。</li>
+<li>Crossover, shown in Algorithm 1, changes an individual  by choosing a random mate for it, and with probability  Pr(Crossover) swapping the bits of the individual to the corresponding value of the chosen mate. Thus, Pr(Crossover),  instead of controlling the probability that crossover occurs,  controls how much genetic material, on average, individuals  will take from a randomly selected mate如算法1所示，通过为个体选择随机配偶，并以概率Pr（Crossover）将个体的比特交换到所选配偶的对应值，从而改变个体。因此，Pr（交叉）不是控制交叉发生的概率，而是控制个体平均从随机选择的配偶身上获得多少遗传物质 注：直接改变个体的对应比特值，一定会对个体进行改变-没有太大借鉴意义，随机性很强 #创新-交叉 </li>
+<li>Mutation, shown in Algorithm 2, randomly changes bits  of an individual with Pr(Mutate) chance to a value drawn  from the relevant entry in the initialization probability matrix.  Mutation, in this way, can be considered analogous to  crossover, but instead of making an individual more like  another network in the population, it becomes more like a  randomly initialized individual. This allows mutation to utilize prior information about the search space (codified in the  initialization probability matrix), while still providing diversity  to the population.如算法2所示，突变将具有Pr（突变）机会的个体的位随机改变为从初始化概率矩阵中的相关条目中提取的值。以这种方式，突变可以被视为类似于交叉，但它不会使个体更像群体中的另一个网络，而是变得更像一个随机初始化的个体。这允许变异利用关于搜索空间的先验信息（编码在初始化概率矩阵中），同时仍然为种群提供多样性。 注：类似于交叉的变异，是和初始个体进行交叉，但是可以生成种群中没有的新个体来增加了多样性。<mark>可以看出变异是为了增强种群多样性。我的论文可以在变异上顺着增加种群多样性的思路，目前思路是生成一个组件池，</mark><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3></li>
+<li>使用的连接矩阵来表示跳跃连接</li>
+</ol>
+<h2 id="2021-Multiobjective-Evolutionary-Design-of-Deep-Convolutional-Neural-Networks-for-Image-Classification-多目标演化"><a href="#2021-Multiobjective-Evolutionary-Design-of-Deep-Convolutional-Neural-Networks-for-Image-Classification-多目标演化" class="headerlink" title="2021-Multiobjective Evolutionary Design of Deep  Convolutional Neural Networks for Image  Classification-多目标演化"></a>2021-Multiobjective Evolutionary Design of Deep  Convolutional Neural Networks for Image  Classification-多目标演化</h2><ol>
+<li><ol>
+<li>the obtained architectures are either  solely optimized for classification performance, or only for one  deployment scenario and 2) the search process requires vast  computational resources in most approaches.<br>1）目前获得的架构仅仅为了分类精度，或者仅仅只是一种<mark>部署场景</mark>，2）搜索过程在大部分方法中都需要大量的计算资源 #优势-多场景 #局限-复杂度高</li>
+</ol>
+</li>
+<li>The flexibility provided from simultaneously obtaining multiple architecture choices for different compute requirements further differentiates our approach from other methods in the literature.<br>同时获得不同计算要求的多个架构选择所提供的灵活性<strong>进一步将我们的方法与文献中的其他方法区分开来。</strong> #优势-多场景 #研究特异性-多目标NAS</li>
+<li>The proposed method addresses the first shortcoming by populating a set of architectures to approximate the entire Pareto  frontier through genetic operations that recombine and modify  architectural components progressively.<br>提出的方法通过遗传操作生成一系列接近帕累托前沿的架构，这种遗传算法逐步重组和修改架构组件 #优势-多目标NAS</li>
+<li><mark>Our approach improves  computational efficiency by </mark>carefully down-scaling the architectures during the search as well as reinforcing the patterns  commonly shared among past successful architectures through  Bayesian model learning.<br>我们的方法通过在搜索过程中仔细缩小架构，并通过贝叶斯模型学习加强过去成功架构之间通常共享的模式来提高计算效率。 #</li>
+<li> One of the main driving forces behind this success is the introduction of many CNN architectures, including GoogLeNet [1], ResNet [2], DenseNet [3], etc., in the context of object classification. Concurrently, architecture designs,such as ShuffleNet [4], MobileNet [5], LBCNN [6], etc., have been developed with the goal of enabling real-world deployment of high-performance models on resource-constrained devices. These developments are the fruits of years of painstaking efforts and human ingenuity.这一成功背后的主要驱动力之一是在对象分类的背景下引入了许多CNN架构，包括GoogLeNet [1]，ResNet [2]，DenseNet [3]等。同时，架构设计，如ShuffleNet [4]，MobileNet [5]，LBCNN [6]等，已经开发出来，目标是在资源有限的设备上实现高性能模型的实际部署。这些发展是多年艰苦努力和人类聪明才智的成果。</li>
+<li>Our proposed algorithm, NSGANetV1, is an iterative process in which initial architectures are made gradually better  as a group, called a population. In every iteration, a group  of offspring (i.e., new architectures) is created by applying variations through crossover and mutation to the more  promising of the architectures already found, also known as  parents, from the population. Every member in the population  (including both parents and offspring) compete for survival  and reproduction (becoming a parent) in each iteration. The  initial population may be generated randomly or guided by  prior-knowledge, i.e., seeding the past successful architectures  directly into the initial population. Subsequent to initialization,  NSGANetV1 conducts the search in two sequential stages:  1) exploration, with the goal of discovering diverse ways to  construct architectures and 2) exploitation that reinforces the  emerging patterns commonly shared among the architectures  successful during exploration. A set of architectures representing efficient tradeoffs between network performance and  complexity is obtained at the end of evolution, through genetic  operators and a Bayesian-model-based learning procedure. A  flowchart and a pseudocode outlining the overall approach are  shown in Fig. 1 and Algorithm 1 #介绍-NSGAII-NAS</li>
+<li>Most existing evolutionary  NAS approaches [14], [19], [24], [32] search only one aspect  of the architecture space—e.g., the connections and/or hyperparameters.之前的工作只考虑一种空间 #局限-搜索空间</li>
+<li>Most existing evolutionary  NAS approaches [14], [19], [24], [32] search only one aspect  of the architecture space—e.g., the connections and/or hyperparameters. In contrast, NSGANetV1 searches over both  operations and connections—the search space is thus more  comprehensive, including most of the previous successful  architectures designed both by human experts and algorithmically. 此研究不止一种搜索空间，有操作搜索和连接搜索两种 #创新-搜索空间</li>
+<li>Given a population of architectures, parents are  selected from the population with a fitness bias. This choice  is dictated by two observations: 1) offspring created around  better parents are expected to have higher fitness on average  than those created around worse parents, with the assumption of some level of gradualism in the solution space and  2) occasionally (although not usually), offspring perform better than their parents, through inheriting useful traits from both  parents. Because of this, one might demand that the best architecture in the population should always be chosen as one of  the parents. However, the deterministic and greedy nature of  that approach would likely lead to premature convergence due  to the loss of diversity in the population [38].  #论文创新点参考-演化</li>
+<li>To address this  problem, we use binary tournament selection [39] to promote  parent architectures in a stochastic fashion. At each iteration,  binary tournament selection randomly picks two architectures  from the population, then the one favored by the multiobjective  selection criterion described in Section III-B becomes one of  the parents. This process is repeated to select a second parent architecture; the two parent architectures then undergo a  crossover operation.使用二进制选择来随机化演化亲本的选择，这样不能准确的得到多样性的个体，专门做一个集合池，1. 里面是虽然帕累托前沿适应性不高，但是有潜力的组件 #论文创新点参考-演化 </li>
+<li>In NSGANetV1, we use two types of crossover (with equal  probability of being chosen) to efficiently exchange substructures between two parent architectures. The first type is at  the block level, in which the offspring architectures are created by recombining the Normal block from the first parent  with the Reduction block from the other parent and vice  versa. The second type is at the node level, where a node  from one parent is randomly chosen and exchanged with  another node at the same position from the other parent. 使用了两种层次的交叉操作，块交叉（交叉双方亲本的Normal block或者reduction block，或者选择一个节点交叉）这是两种细粒度的交叉操作，我的不仅有块、（多个）节点、还有跳跃连接。</li>
+<li>. Most existing evolutionary  NAS approaches [14], [19], [24], [32] search only one aspect  of the architecture space—e.g., the connections and/or hyperparameters.In contrast, NSGANetV1 searches over both  operations and connections—the search space is thus more  comprehensive, including most of the previous successful  architectures designed both by human experts and algorithmically. 不单单是超参数还是还是连接的搜索，是连接和搜索共同搜索的研究。  #论文创新点参考-演化</li>
+<li>Among the many different NAS methods being continually proposed, evolutionary algorithms (EAs) are getting a  plethora of attention, due to their population-based nature and  flexibility in encoding.    在不断提出的许多不同的 NAS 方法中，进化算法 （EA） 因其基于群体的性质和编码的灵活性而受到大量关注。 #夸赞-演化算法</li>
+<li>Therefore, to overcome this  computational bottleneck, we carefully (using a series of ablation studies) <mark>down-scale the architectures to create their proxy  models</mark> [8], [17], which can be optimized efficiently in the  lower-level through SGD. <h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3></li>
+<li>遗传部分的亮点是使用了贝叶斯模型计算历史中表现好的模型一些节点顺序之间的关系，来利用贝叶斯计算模块排列的概率（是否有节点继承） #创新-个体选择</li>
+<li>使用了两个层次的交叉，块层次和节点层次。为了让种群的总数不变，在交叉变异后，只随机让一个个体进入下一代。疑问：使用的NSGA算法，应该是父代和子代都加入被筛选的群体，为什么还会丢掉一个个体 #创新-交叉</li>
+<li>使用了基于NSGAII的架构搜索创新 #创新-NSGAII</li>
+<li>CNN有network-level和block-level两种层次设计 #设计网络架构</li>
+<li>很多指标都可以做为某个目标代理，经过实验选择了flops作为代理</li>
+<li>To simultaneously compare and select architectures based on these two objectives, we use the nondominated  ranking and the “crowded-ness” concepts proposed in [29]. #NAS-多目标演化</li>
+<li>使用贝叶斯网络学习的概率的群体是过去评估个体排序前100个<h3 id="是否使用了权重继承"><a href="#是否使用了权重继承" class="headerlink" title="是否使用了权重继承"></a>是否使用了权重继承</h3></li>
+</ol>
+<h2 id="2022-GNN-EA-Graph-Neural-Network-with-Evolutionary-Algorithm"><a href="#2022-GNN-EA-Graph-Neural-Network-with-Evolutionary-Algorithm" class="headerlink" title="2022-GNN-EA: Graph Neural Network with Evolutionary  Algorithm"></a>2022-GNN-EA: Graph Neural Network with Evolutionary  Algorithm</h2><h3 id="好表达"><a href="#好表达" class="headerlink" title="好表达"></a>好表达</h3><ol>
+<li>Unfortunately, existing graph NAS methods are usually susceptible to unscalable depth, redundant omputation, constrained search space and some other limitations.<br>说明当前图神经网络架构搜索的限制</li>
+<li>The experiment results show that GNN-EA exhibits comparable performance to the previous state-of-the-art handcrafted and automated GNN models.<br>表达自己的图搜索的结果非常好</li>
+<li>We present an evolutionary graph neural network architecture search strategy based on fine-grained atomic operations.<br>表达出自己提出了一个基于什么的图网络搜索框架</li>
+<li>Following the search strategy, we propose GNNEA, a framework that can achieve adaptive adjustment of neural structures without human intervention.<br>这个搜索策略还不需要人的干预，结果很好</li>
+<li>We conduct comparison experiments on five real-world datasets to evaluate our method. The results prove that GNN-EA outperforms the previous handcrafted GNN models and shows comparable performance to the state-of-the-art automated GNN models.<br>我们做了实验，也写为了贡献之一</li>
+<li>Table I shows the candidate set of atomic operations.<br>介绍搜索空间</li>
+<li>The new generation is composed of elite individuals and new individuals created by crossover and mutation operators.We iterate this process to maximize the fitness on a specific task and evolve desirable graph neural networks.<br>新一代是怎么产生的，迭代的运行<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3></li>
+<li>提出两种（两个层面）交叉策略。</li>
+<li>使用两个层面的交叉操作</li>
+<li>对适应值最不好的两个个体变异<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>评估花销大–结论处说明了这一点</li>
+</ol>
+<h2 id="2021-DE-GCN-Differential-Evolution-as-an-optimization-algorithm-for-Graph-Convolutional-Networks"><a href="#2021-DE-GCN-Differential-Evolution-as-an-optimization-algorithm-for-Graph-Convolutional-Networks" class="headerlink" title="2021-DE-GCN: Differential Evolution as an optimization algorithm for Graph Convolutional Networks"></a>2021-DE-GCN: Differential Evolution as an optimization algorithm for Graph Convolutional Networks</h2><h3 id="好表达-1"><a href="#好表达-1" class="headerlink" title="好表达"></a>好表达</h3><ol>
+<li>Neural networks had impressive results in recent years. Although neural networks only performed using Euclidean data in past decades, many data-sets in the real world have graph structures.This gap led researchers to implement deep learning on graphs.<br>神经网络最近很成功，夸赞图</li>
+<li>In recent years, learning with graphs and extracting latent information from networks is a hot research topic [1].<br>近年来，图神经网络很火</li>
+<li>Graphs’ data structure is more complicated than the Euclidian data structure. As a result, this leads to complicated learning process in graphs. Authors in [2] have formulated neural networks for graphs.<br>介绍图复杂的特点<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h3></li>
+<li>使用差分遗传优化（一种实数优化方法）优化图卷积神经网络的权重参数</li>
+</ol>
+<h2 id="2022-Auto-GNAS-A-Parallel-Graph-Neural-Architecture-Search-Framework"><a href="#2022-Auto-GNAS-A-Parallel-Graph-Neural-Architecture-Search-Framework" class="headerlink" title="2022-Auto-GNAS: A Parallel Graph Neural  Architecture Search Framework"></a>2022-Auto-GNAS: A Parallel Graph Neural  Architecture Search Framework</h2><h3 id="表达"><a href="#表达" class="headerlink" title="表达"></a>表达</h3><p>介绍部分：</p>
+<ol>
+<li>In recent years,  graph neural networks (GNNs) have received extensive  attention from many researchers as an effective method for  mining the potential information of graph data [3], [4]. The  classic graph neural network models, including GCN [5] and GAT [6], have achieved good results in graph data mining. However, to obtain expected performance on a given  graph dataset, it is necessary to design the architecture of  graph neural networks based on the specific characteristics  of graph datasets, and it usually requires a lot of manual  work and domain expert experience.<br>说明图网络应用广泛和搜索图神经架构的必要性</li>
+<li>There are two types of GCNs, spectral-based [19], and spatial-based [20]. The spectral-based method needs to operate  on the entire graph. It is not easy to parallel and hardly scale  to big graphs. However, the spatial-based method is flexible  to aggregate feature information between neighbor nodes.<br>说明基于频谱的图网络是使用有难度的</li>
+<li>However, when we need to process a large-scale graph dataset,  such as the graph classification task in biological networks, it  will significantly increase the time cost of evaluating a GNN  architecture<br>大规模的数据集，评估个体需要更多的时间花费</li>
+<li>文中描述搜索空间的部分可以借鉴，介绍搜索搜索空间，可以从图网络执行顺序上来介绍（如本文）</li>
+<li>Each genetic searcher can simultaneously use information entropy and estimation feedback signal to constrain the search direction.<br>每个基因搜索者可以同时使用信息熵和估计反馈信号来约束搜索方向。</li>
+<li>Each searcher  can simultaneously use the feedback information of GNN  architecture estimation and information entropy to accelerate the search process for getting better GNN architecture.<br>每个搜索者可以同时使用GNN架构估计和信息熵的反馈信息来加速搜索过程，以获得更好的GNN架构。<h3 id="好想法"><a href="#好想法" class="headerlink" title="好想法"></a>好想法</h3></li>
+<li>The architecture mutation-selection probability vector P<del>is a soft constraint strategy to limit search direction. It can restrict search direction on the region near the GNN architectures with good performance and simultaneously reserve the probability of exploring other areas in the vast search space.<br>架构突变选择概率向量P</del>是一种限制搜索方向的软约束策略。它可以以良好的性能限制GNN架构附近区域的搜索方向，同时保留在广阔的搜索空间中探索其他区域的概率。</li>
+<li>With the analysis of GNN architecture features, we find  that different architecture component values have different frequencies of occurrence in the GNN architectures  that can get good performance on a given dataset.  Inspired by the theory that association algorithm mines  frequent itemset [23], we use information entropy to measure the correlation between GNN architecture component values and good performance.<br>通过对GNN架构特征的分析，我们发现不同的架构组件值在GNN架构中具有不同的出现频率，可以在给定数据集上获得良好的性能。 受关联算法挖掘频繁项集[23]的理论启发，我们使用信息熵来衡量GNN架构组件值与良好性能之间的相关性。<h3 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a>总结</h3></li>
+<li><mark>在本文中的导向型变异中只是考虑了某个组件在整个个体里出现的概率，是否可以继续考虑顺序关系，某个位置出现这个组件出现的概率。</mark></li>
+</ol>
+<h2 id="2022-A-Graph-Architecture-Search-Method-Based-On-Grouped-Operations"><a href="#2022-A-Graph-Architecture-Search-Method-Based-On-Grouped-Operations" class="headerlink" title="2022-A Graph Architecture Search Method Based On  Grouped Operations"></a>2022-A Graph Architecture Search Method Based On  Grouped Operations</h2><h3 id="好表达-2"><a href="#好表达-2" class="headerlink" title="好表达"></a>好表达</h3><ol>
+<li>Generally, graph neural networks can be applied  to two categories of tasks, node-level tasks and graph-level  tasks. For node-level task, GNN models usually learn the  hidden representation HV 2 RjV j×d of nodes and then adopt  a predictor on node representation to complete the task [20].  For graph-level task, a representation for the whole graph is  learned to complete the task.<br>介绍图网络节点层面和图层面的任务</li>
+<li>we propose a graph architecture search method to decrease the instability with a large number of candidate operations. 消除搜索的不稳定性</li>
+<li>We use a continuous relaxation of our search space and  optimize the hyper-networks with a gradient-based algorithm.我们使用搜索空间的持续松弛，并使用基于梯度的算法优化超网络。<h3 id="总结-6"><a href="#总结-6" class="headerlink" title="总结"></a>总结</h3></li>
+<li>只是搜索的聚合方式<h2 id="2022-Android-Malware-Detection-Using-Supervised-Deep-Graph-Representation-Learning"><a href="#2022-Android-Malware-Detection-Using-Supervised-Deep-Graph-Representation-Learning" class="headerlink" title="2022-Android Malware Detection Using Supervised Deep Graph Representation Learning"></a>2022-Android Malware Detection Using Supervised Deep Graph Representation Learning</h2><h3 id="好表达-3"><a href="#好表达-3" class="headerlink" title="好表达"></a>好表达</h3></li>
+<li>There is an urgent demand  for developing malware detection techniques to deal with  the massive growth of Android malware.<br>发展一项技术是如何必要</li>
+<li></li>
+<li></li>
+<li>Graph neural networks (GNNs) [4] are a popular and  flexible class of machine learning models that extend convolutional neural networks (CNNs) to graph-structured data  by facilitating the learning of relationships between graph  elements.<br>介绍图神经网络<h3 id="总结-7"><a href="#总结-7" class="headerlink" title="总结"></a>总结</h3></li>
+<li><mark>缺点</mark>，只使用了一种读出方式，且读出没有用到图的结构信息 #缺点</li>
+<li>使用了两个自动编码器，分别得到两个一维向量，送入到mlp进行识别 #原理</li>
+</ol>
+<h2 id="2022-Residual-Convolutional-Graph-Neural-Network-with-Subgraph-Attention-Pooling"><a href="#2022-Residual-Convolutional-Graph-Neural-Network-with-Subgraph-Attention-Pooling" class="headerlink" title="2022-Residual Convolutional Graph Neural Network with Subgraph Attention Pooling"></a>2022-Residual Convolutional Graph Neural Network with Subgraph Attention Pooling</h2><ol>
+<li>An obvious idea is to learn the detailed topology using  several graph convolution layers before each pooling  layer.  #原理<br>在池化前会使用卷积层学习节点特征</li>
+<li>和直接求和、平均，取最大不同的读出方式，提出了更加dedicated方式</li>
+<li>residual架构</li>
+<li>We propose a new strategy for graph-level representation generation, which separately aggregates each node’s information and introduces the attention mechanism to distinguish  the different contributions of each node to graph representation and alleviate the loss of critical and structural information.<br>我们提出了一种新的图级表示生成策略，该策略分别聚合每个节点的信息，并引入注意力机制来区分每个节点对图表示的不同贡献，并减轻关键和结构信息的丢失。 #原理 </li>
+<li>Pooling approaches are divided  into structure-based or feature-based methods. #GraphPooling</li>
+<li>Structure-based approaches[13]  output a coarsened graph via clustering through the  convolutional layer. Feature-based approaches[6, 14, 15]  leverage the node features to give a score for each  node and then remove a part of the nodes based on  the scores. #GraphPooling </li>
+<li>1-hop subgraph features are  used to replace node features to compute the attention  scores (node importance) for each node.<br>使用1阶邻居子图替代只有自己的节点</li>
+<li>We set the 1-hop subgraph and replaced the features  of nodes with the features of the 1-hop subgraphs. 使用一阶子图代替单独节点</li>
+<li>We used the 1-hop subgraph  features instead of single-node features to compute  attention scores for node selection. The left half of  Eq. (3) represents the relative value of the central node  and the first-order neighbor feature. The right half of  Eq. (3) represents the mean values of all nodes in the  subgraph. #原理 <h3 id="总结-8"><a href="#总结-8" class="headerlink" title="总结"></a>总结</h3></li>
+<li>定义了新的池化操作</li>
+<li>采取了丢弃节点来进行池化，减少了特征信息</li>
+</ol>
+<h1 id="IEEE-evolution-graph-architecture"><a href="#IEEE-evolution-graph-architecture" class="headerlink" title="IEEE (evolution graph architecture)"></a>IEEE (evolution graph architecture)</h1><h2 id="2019-EVOLUTION-OF-GRAPH-CLASSIFIERS"><a href="#2019-EVOLUTION-OF-GRAPH-CLASSIFIERS" class="headerlink" title="2019-EVOLUTION OF GRAPH CLASSIFIERS"></a>2019-EVOLUTION OF GRAPH CLASSIFIERS</h2><ol>
+<li>基于突变选择概率，对好的突变进行奖励。最初以相同的概率选择突变。使用一个分数衡量突变的有效性。奖励使用分数表示</li>
+</ol>
+<h2 id="NPENAS-Neural-Predictor-Guided-Evolution-for-Neural-Architecture-Search"><a href="#NPENAS-Neural-Predictor-Guided-Evolution-for-Neural-Architecture-Search" class="headerlink" title="NPENAS: Neural Predictor Guided Evolution for Neural Architecture Search"></a>NPENAS: Neural Predictor Guided Evolution for Neural Architecture Search</h2><ol>
+<li>基于贝叶斯优化预测模型性能，使贝叶斯网络输出的精度和模型实际精度接近的概率越大越好，使用最大似然估计作为损失函数。 #原理</li>
+<li>基于图网络预测模型性能，图网络输出的精度和模型实际精度越接近越好，使用MSE作为损失函数。 #原理</li>
+<li>选取代理模型预测的前几名进行训练评估。 #原理</li>
+<li>分别在先前的5个神经架构的搜索工作的搜索空间上进行了搜索。 #原理</li>
+<li>one-to-many mutation strategy是一个个体变异为多个个体，具体细节没有描述。  #论文创新-one-to-many-mutation</li>
+</ol>
+<h2 id="Graph-Neural-Network-Architecture-Search-for-Molecular-Property-Prediction"><a href="#Graph-Neural-Network-Architecture-Search-for-Molecular-Property-Prediction" class="headerlink" title="Graph Neural Network Architecture Search for Molecular Property Prediction"></a>Graph Neural Network Architecture Search for Molecular Property Prediction</h2><ol>
+<li>To obtain high prediction accuracy for different datasets, we need to tune various MPNN components, including message, aggregate, update, and gather (readout) functions. 为了获得不同数据集的高预测精度，我们需要调整各种 MPNN 组件，包括消息、聚合、更新和收集（读出）功能。</li>
+<li>We focus on developing NAS for MPNNs that incorporates both the node and edge features to predict molecular properties.我们专注于为 MPNN 开发 NAS，它结合了节点和边缘特征来预测分子特性。</li>
+<li>MPNNs have been widely used to study molecular properties [8]. Borrowing the idea of Res-Net [19], we develop a NAS search space for stacked MPNNs with multiple MPNN cells and skip connections. MPNN 已广泛用于研究分子特性 [8]。 借用 Res-Net [19] 的思想，我们为具有多个 MPNN 单元并跳过连接的堆叠 MPNN 开发了一个 NAS 搜索空间。 #创新点-借鉴 #表达-借鉴</li>
+<li>We develop an NAS approach to generate stacked MPNN architecture to predict the molecular properties of small molecules.我们开发了一种 NAS 方法来生成堆叠的 MPNN 架构，以预测小分子的分子特性。 #表达-借鉴</li>
+</ol>
+<h2 id="Regularized-Evolution-for-Image-Classiﬁer-Architecture-Search-open-code"><a href="#Regularized-Evolution-for-Image-Classiﬁer-Architecture-Search-open-code" class="headerlink" title="Regularized Evolution for Image Classiﬁer Architecture Search #open-code"></a>Regularized Evolution for Image Classiﬁer Architecture Search #open-code</h2><ol>
+<li>At each cycle, it samples S random models from the population, each drawn uniformly at random with replacement. The model with the highest validation ﬁtness within this sample is selected as the parent. A new architecture, called the child, is constructed from the parent by the application of a transformation called a mutation. A mutation causes a simple and random modiﬁcation of the architecture and is described in detail below. 在此样本中具有最高验证适应度的模型被选为父模型。 一个称为子架构的新架构是通过应用称为突变的转换从父架构构建的。 突变会导致对体系结构进行简单且随机的修改，下面将对此进行详细描述。 #表达-借鉴</li>
+<li>It is common in tournament selection to keep the population size ﬁxed at the initial value P. This is often accomplished with an additional step within each cycle: discarding (or killing) the worst model in the random S-sample. We will refer to this approach as non-aging evolution. In contrast, in this paper we prefer a novel approach: killing the oldest model in the population—that is, removing from the population the model that was trained the earliest (“remove dead from left of pop” in Algorithm 1). This favors the newer models in the population. We will refer to this approach as aging evolution. In the context of architecture search, aging evolution allows us to explore the search space more, instead of zooming in on good models too early, as non-aging evolution would (see Discussion section for details).在锦标赛选择中，将种群大小固定在初始值 P 是很常见的。这通常通过在每个循环中执行一个额外的步骤来完成：丢弃（或杀死）随机 S 样本中最差的模型。 我们将这种方法称为非老化进化。 相比之下，在本文中，我们更喜欢一种新颖的方法：杀死种群中最老的模型——也就是说，从种群中移除最早训练的模型（算法 1 中的“remove dead from left of pop”）。 这有利于人口中的新模型。 我们将这种方法称为老化进化。 在架构搜索的背景下，老化进化使我们能够更多地探索搜索空间，而不是像非老化进化那样过早地放大好的模型（详见讨论部分）。 #创新-借鉴</li>
+<li>New models are constructed by applying a mutation to existing models, transforming their architectures in random ways. To navigate the NASNet search space described above, we use two main mutations that we call the hidden state mutation and the op mutation. A third mutation, the identity, is also possible. Only one of these mutations is applied in each cycle, choosing between them at random.新模型是通过对现有模型应用突变，以随机方式转换其架构来构建的。 为了导航上述 NASNet 搜索空间，我们使用了两个主要的突变，我们称之为隐藏状态突变和 op 突变。 第三种突变，身份，也是可能的。 在每个循环中只应用这些突变中的一个，在它们之间随机选择。 #缺点-借鉴</li>
+<li>Our main baseline is the application of RL to the same search space. RL was implemented using the algorithm and code in the baseline study (Zoph et al. 2018). An LSTM controller outputs the architectures, constructing the pairwise combinations one at a time, and then gets a reward for each architecture by training and evaluating it. More detail can be found in the baseline study. We also compared against random search (RS). In our RS implementation, each model is constructed randomly so that all models in the search space are equally likely, as in the initial population in the evolutionary algorithm. In other words, the models in RS experiments are not constructed by mutating existing models, so as to make new models independent from previous ones.我们的主要基线是将 RL 应用于相同的搜索空间。 RL 是使用基线研究中的算法和代码实现的（Zoph 等人，2018 年）。 LSTM 控制器输出架构，一次构建一个成对组合，然后通过训练和评估每个架构获得奖励。 更多细节可以在基线研究中找到。 我们还与随机搜索 (RS) 进行了比较。 在我们的 RS 实现中，每个模型都是随机构造的，因此搜索空间中的所有模型都具有相同的可能性，就像进化算法中的初始种群一样。 换句话说，RS实验中的模型不是通过改变现有模型来构建的，从而使新模型独立于先前的模型。 #random-search</li>
+</ol>
+<h2 id="2019-EVOLUTION-OF-GRAPH-CLASSIFIERS-open-code-表格对象"><a href="#2019-EVOLUTION-OF-GRAPH-CLASSIFIERS-open-code-表格对象" class="headerlink" title="2019-EVOLUTION OF GRAPH CLASSIFIERS #open-code #表格对象"></a>2019-EVOLUTION OF GRAPH CLASSIFIERS #open-code #表格对象</h2><ol>
+<li>Architecture design and hyperparameter selection for deep neural networks often involves guesswork. The parameter space is too large to try all possibilities, meaning one often settles for a suboptimal solution. Some works have proposed automatic architecture and hyperparameter search, but are constrained to image applications. We propose an evolution framework for graph data which is extensible to generic graphs. Our evolution mutates a population of neural networks to search the architecture and hyperparameter space. At each stage of the neuroevolution process, neural network layers can be added or removed, hyperparameters can be adjusted, or additional epochs of training can be applied. Probabilities of the mutation selection based on recent successes help guide the learning process for efﬁcient and accurate learning. We achieve state-of-the-art on MUTAG protein classiﬁcation from a small population of 10 networks and gain interesting insight into how to build effective network architectures incrementally.深度神经网络的架构设计和超参数选择通常涉及猜测。 参数空间太大而无法尝试所有可能性，这意味着人们通常会选择次优解决方案。 一些作品提出了自动架构和超参数搜索，但仅限于图像应用。 我们提出了一个可扩展到通用图的图数据演化框架。 我们的进化使大量神经网络发生变异，以搜索架构和超参数空间。 在神经进化过程的每个阶段，可以添加或删除神经网络层，可以调整超参数，或者可以应用额外的训练时期。 基于最近成功的突变选择概率有助于指导学习过程以实现高效和准确的学习。 我们从 10 个网络的小群体中实现了最先进的 MUTAG 蛋白质分类，并获得了对如何逐步构建有效网络架构的有趣见解。 #表达借鉴-介绍</li>
+</ol>
+<h3 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h3><ol>
+<li>选择突变，每个突变的概率会根据突变是倾向于改善还是恶化神经网络的性能而定期调整。 随着时间的推移，每个突变的概率都可以用来衡量它们在学习过程中的有效性，从而深入了解架构设计和功效。</li>
+<li>图神经网络演化</li>
+<li>添加/删除 1 个过滤器 (COO)<br>随机数个卷积</li>
+<li>添加/删除带有随机数过滤器的图卷积（GC）</li>
+<li>添加/删除具有随机数量的隐藏神经元 (FC) 的全连接层</li>
+<li>添加/删除具有随机池化率（GP）的图形池化层</li>
+<li>添加/删除图形注意力层（ATT）</li>
+<li>添加/删除跳过连接（SKP）</li>
+<li>更改任何现有卷积类型层的过滤器数量。</li>
+<li>改变学习率</li>
+<li>改变正则化（<code>2 或</code> 1 ）λ参数</li>
+</ol>
+<h2 id="2022-Auto-Molecular-Structure-Representation-Learning-for-Multi-label-Metabolic-Pathway-Prediction-表格对象"><a href="#2022-Auto-Molecular-Structure-Representation-Learning-for-Multi-label-Metabolic-Pathway-Prediction-表格对象" class="headerlink" title="2022-Auto Molecular Structure Representation Learning for Multi-label Metabolic Pathway Prediction #表格对象"></a>2022-Auto Molecular Structure Representation Learning for Multi-label Metabolic Pathway Prediction #表格对象</h2><ol>
+<li>Sperduti et al. [32] first adopted neural networks on directed acyclic graphs. The concept of GNNs was initially discussed in Gori et al. [33]. Motivated by the success of CNNs in the computer vision domain, much work is concentrated on graph convolutional networks(GCNs). There are two types of GCNs, spectral-based [34] and spatial-based [35]. Graph neural network uses message passing to realize graph convolution operation, which can aggregate the features of neighbor nodes to get the representation of the central node. As the spectral-based method needs to operate on the entire graph, it is not easy to parallel and hardly scale to big graphs. However, the spatial-based method is flexible to aggregate feature information between neighbor nodes. The GNNs mentioned in this paper represent spatial-based graph convolutional neural networks.Sperduti 等人。 [32]首先在有向无环图上采用神经网络。 GNN 的概念最初在 Gori 等人中讨论过。 [33]。 受 CNN 在计算机视觉领域取得成功的推动，许多工作都集中在图卷积网络 (GCN) 上。 有两种类型的 GCN，基于光谱的 [34] 和基于空间的 [35]。 图神经网络使用消息传递实现图卷积运算，可以聚合邻居节点的特征得到中心节点的表示。 由于基于谱的方法需要对整个图进行操作，因此不容易并行并且很难扩展到大图。 然而，基于空间的方法可以灵活地聚合相邻节点之间的特征信息。 本文提到的 GNN 代表基于空间的图卷积神经网络。 #表达借鉴-介绍</li>
+<li>In the research field of graph neural architecture search, there are mainly two different mechanisms for designing GNN architecture search algorithms, which are based on reinforcement learning, based on evolutionary learning. GraphNAS [22] and AutoGNN [23] use reinforcement learning to design the GNN architecture search algorithm, they use LSTM as the agent to sample different GNN architectures. And the LSTM is trained based on policy gradient to maximize the expected validation accuracy of the sampled GNN architecture. GeneGNN [24], GraphPAS [25] and Auto-GNAS [26] construct the GNN architecture search algorithm based on evolution mechanism. GeneGNN proposes a search framework that can simultaneously search for GNN architecture and hyperparameters. GraphPAS and Auto-GNAS combine parallel computing with GNN architecture search algorithm for the first time, which greatly improves the efficiency of GNN architecture search process.在图神经架构搜索的研究领域，主要有两种不同的机制来设计 GNN 架构搜索算法，一种是基于强化学习，一种是基于进化学习。 GraphNAS [22] 和 AutoGNN [23] 使用强化学习设计 GNN 架构搜索算法，他们使用 LSTM 作为代理对不同的 GNN 架构进行采样。 并且 LSTM 基于策略梯度进行训练，以最大限度地提高采样 GNN 架构的预期验证准确性。 GeneGNN [24]、GraphPAS [25] 和 Auto-GNAS [26] 构建了基于进化机制的 GNN 架构搜索算法。 GeneGNN 提出了一个可以同时搜索 GNN 架构和超参数的搜索框架。 GraphPAS和Auto-GNAS首次将并行计算与GNN架构搜索算法相结合，大大提高了GNN架构搜索过程的效率。 #表达借鉴-介绍 </li>
+<li> each mutation searcher uses different mutation intensities, which m architecture components will mutate randomly for one GNN architecture, to generate M new child architectures.每个变异搜索器使用不同的变异强度，这 m 个架构组件将为一个 GNN 架构随机变异，以生成 M 个新的子架构。根据个体适应度的不同，为个体采用不同的变异程度 #创新-变异</li>
+<li>Age Evolution Updating. 删除最老的个体，而不是最差的个体</li>
+<li>mutation search</li>
+</ol>
+<h2 id="2022-SE-GRU-Structure-Embedded-Gated-Recurrent-Unit-Neural-Networks-for-Temporal-Link-Prediction-动态图"><a href="#2022-SE-GRU-Structure-Embedded-Gated-Recurrent-Unit-Neural-Networks-for-Temporal-Link-Prediction-动态图" class="headerlink" title="2022-SE-GRU: Structure Embedded Gated Recurrent Unit Neural Networks for Temporal Link Prediction #动态图"></a>2022-SE-GRU: Structure Embedded Gated Recurrent Unit Neural Networks for Temporal Link Prediction #动态图</h2><ol>
+<li>Most recent approaches to predicting temporal links rely on two stages: modeling the graph topology and modeling the time dependency [13]. The former is usually based on Graph Neural Networks (GNNs) or matrix factorization, then the latter mostly utilizes a deep time-series model, typically Recurrent Neural Networks (RNNs).预测时间链接的最新方法依赖于两个阶段：对图拓扑进行建模和对时间依赖性进行建模 [13]。 前者通常基于图神经网络 (GNN) 或矩阵分解，而后者则主要使用深度时间序列模型，通常是循环神经网络 (RNN)。 </li>
+<li>Dynamic graphs are ubiquitous data structures that resemble many real-world networks evolving over time [1]. 动态图是无处不在的数据结构，类似于许多随时间演变的现实世界网络 [1]。</li>
+<li>For dynamic graphs, nodes indicating entities and edges (also called links) connecting them pairwise change over time [2].对于动态图，表示实体的节点和连接它们的边（也称为链接）随时间成对变化 [2]。</li>
+</ol>
+<h2 id="2021-Neural-Architecture-Search-Based-on-Evolutionary-Algorithms-with-Fitness-Approximation-CNN"><a href="#2021-Neural-Architecture-Search-Based-on-Evolutionary-Algorithms-with-Fitness-Approximation-CNN" class="headerlink" title="2021- Neural Architecture Search Based on Evolutionary Algorithms with Fitness Approximation #CNN"></a>2021- Neural Architecture Search Based on Evolutionary Algorithms with Fitness Approximation #CNN</h2><ol>
+<li>创新了衡量两个神经架构的距离，直接在神经架构上评估多样性，不仅评估适应性高的个体，而且还评估和适应性高的个体距离大的个体，来保持多样性 #创新点</li>
+<li>创新了一种近似评估准确性的算法</li>
+</ol>
+<h2 id="2021-Two-Stage-Evolutionary-Neural-Architecture-Search-for-Transfer-Learning-CNN"><a href="#2021-Two-Stage-Evolutionary-Neural-Architecture-Search-for-Transfer-Learning-CNN" class="headerlink" title="2021-Two-Stage Evolutionary Neural Architecture Search for Transfer Learning #CNN"></a>2021-Two-Stage Evolutionary Neural Architecture Search for Transfer Learning #CNN</h2><ol>
+<li>使用演化算法进行神经架构的修剪，从一个大模型 修剪称为一个小模型，还不损失性能</li>
+</ol>
+<h2 id="2021-Reliable-Network-Search-Based-on-Evolutionary-Algorithm-CNN"><a href="#2021-Reliable-Network-Search-Based-on-Evolutionary-Algorithm-CNN" class="headerlink" title="2021-Reliable Network Search Based on Evolutionary Algorithm #CNN"></a>2021-Reliable Network Search Based on Evolutionary Algorithm #CNN</h2><h2 id="Fast-Evolutionary-Neural-Architecture-Search-Based-on-Bayesian-Surrogate-Model-CNN"><a href="#Fast-Evolutionary-Neural-Architecture-Search-Based-on-Bayesian-Surrogate-Model-CNN" class="headerlink" title="# Fast Evolutionary Neural Architecture Search Based on Bayesian Surrogate Model #CNN"></a># Fast Evolutionary Neural Architecture Search Based on Bayesian Surrogate Model #CNN</h2><ol>
+<li>使用代理预测模型性能，与其他工作不同的是，预测的是模型之间的相对性能，使用比较器比较两个模型的关系。 #创新点-代理</li>
+<li>丰富了mutation操作<br>插入一个 CONV 三元组<br>插入一个跳过连接<br>插入块<br>换频道<br>更改跳过连接<br>移除一个 CONV 三元组<br>删除跳过连接<br>删除块  #创新点-借鉴</li>
+</ol>
+<h2 id="2019-Searching-for-Accurate-Binary-Neural-Architectures-CNN-acc-flops"><a href="#2019-Searching-for-Accurate-Binary-Neural-Architectures-CNN-acc-flops" class="headerlink" title="2019-Searching for Accurate Binary Neural Architectures #CNN  #acc-flops"></a>2019-Searching for Accurate Binary Neural Architectures #CNN  #acc-flops</h2><h2 id="2019-Evolutionary-Neural-Architecture-Search-for-Image-Restoration-CNN-图像修复"><a href="#2019-Evolutionary-Neural-Architecture-Search-for-Image-Restoration-CNN-图像修复" class="headerlink" title="2019-Evolutionary Neural Architecture Search for Image Restoration #CNN #图像修复"></a>2019-Evolutionary Neural Architecture Search for Image Restoration #CNN #图像修复</h2><ol>
+<li>在架构的拓扑矩阵发生变异</li>
+</ol>
+<h2 id="2021-Real-Time-Federated-Evolutionary-Neural-Architecture-Search-MOEA-CNN"><a href="#2021-Real-Time-Federated-Evolutionary-Neural-Architecture-Search-MOEA-CNN" class="headerlink" title="2021-Real-Time Federated Evolutionary Neural Architecture Search #MOEA #CNN"></a>2021-Real-Time Federated Evolutionary Neural Architecture Search #MOEA #CNN</h2><ol>
+<li>Evolutionary algorithms (EAs) have become increasingly popular in NAS. Different from the previous neuroevolution techniques [35] that aim to optimize both the weights and architecture of neural networks, EA-based NAS only optimizes the model architecture itself, and the model parameters are trained using conventional gradient descent methods [11]–[14]. Since EAs are particularly well suited to dealing with multiobjective optimization problems, multiobjective evolutionary NAS has received increased attention. For example, NSGA-net [20] adopted the elitist nondominated sorting genetic algorithm (NSGA-II) to optimize the performance and floating-point operations per second (FLOPs). However, NSGA-net needs to reinitialize a set of newly generated models which are trained from scratch for fitness evaluations, which is computationally very expensive. Interesting ideas to avoid training networks from scratch have been proposed, such as weight sharing [9], network morphism [36], and network transformation [37], [38]. A Lamarckian inheritance-based network morphism mechanism is designed for multiobjective evolutionary NAS to accelerate the search process [39], where both predictive performance and the number of parameters of the models are optimized. Besides, NSGANetV2 [40] uses the weights inherited from the trained supernet [41] as a warm-up to speed up model training. At the same time, a surrogate model is adopted as an accuracy predictor to reduce computation time. In addition, Zhou et al. [42] proposed an EA-based method for shallowing DNNs at block levels, which adopts Pareto ensemble pruning [43] to simultaneously maximize the generalization performance and minimize the number of base learners whose parameters are shared within unfolded multipath blocks. More recently, Yang et al. [44] proposed a continuous evolution strategy for efficient NAS, in which a modified NSGA-III [45], called pNSGA-III, is used to search for two sets of Pareto-optimal solutions, one simultaneously maximizing the accuracy and minimizing the number of parameters, and the other simultaneously maximizing the increase of accuracy and minimizing the number of parameters, to address the so-called a small model trap phenomenon. Meanwhile, Cai et al. [46] designed an once-for-all network that decouples model training from architecture search and adopts a progressive shrinking algorithm to mitigate the interference between the searched subnetworks. After the once-for-all network has been trained, a surrogate model named neural-network-twins is built to predict the latency and accuracy for a given model architecture, and an evolutionary search is used to generate a subnetwork upon neural-network-twins according to different requirements of the hardware platform. It should be pointed out, however, that the above methods for avoiding training networks from scratch cannot be directly employed in federated NAS.进化算法 (EA) 在 NAS 中越来越流行。 不同于以往旨在同时优化神经网络权重和架构的神经进化技术[35]，基于EA的NAS仅优化模型架构本身，模型参数使用传统的梯度下降方法[11]-[14]进行训练 ]. 由于 EA 特别适合处理多目标优化问题，因此多目标进化 NAS 受到了越来越多的关注。 例如，NSGA-net [20] 采用精英非支配排序遗传算法 (NSGA-II) 来优化性能和每秒浮点运算 (FLOPs)。 然而，NSGA-net 需要重新初始化一组新生成的模型，这些模型是从头开始训练的，用于适应性评估，这在计算上非常昂贵。 已经提出了避免从头开始训练网络的有趣想法，例如权重共享 [9]、网络态射 [36] 和网络变换 [37]、[38]。 基于拉马克继承的网络态射机制被设计用于多目标进化 NAS 以加速搜索过程 [39]，其中模型的预测性能和参数数量都得到了优化。 此外，NSGANetV2 [40] 使用从经过训练的超网 [41] 继承的权重作为热身来加速模型训练。 同时，采用替代模型作为精度预测器以减少计算时间。 此外，周等人。 [42] 提出了一种基于 EA 的方法，用于在块级别浅化 DNN，该方法采用 Pareto 集成修剪 [43] 来同时最大化泛化性能并最小化其参数在展开的多路径块中共享的基学习器的数量。 最近，杨等人。 [44] 提出了一种高效 NAS 的连续演化策略，其中一种改进的 NSGA-III [45]，称为 pNSGA-III，用于搜索两组帕累托最优解，一组同时最大化精度和最小化数量 的参数，另一个同时最大限度地提高精度和最小化参数的数量，以解决所谓的小模型陷阱现象。 同时，蔡等人。 [46] 设计了一个一次性网络，将模型训练与架构搜索分离，并采用渐进式收缩算法来减轻搜索子网络之间的干扰。 在训练完一次性网络后，将构建一个名为 neural-network-twins 的替代模型来预测给定模型架构的延迟和准确性，并使用进化搜索在 neural-network- twins根据硬件平台的不同要求。 但需要指出的是，上述避免从头开始训练网络的方法不能直接用于联邦NAS。 #表达借鉴-ENAS</li>
+<li>NSGA-II is a very popular MOEA based on the dominance relationship between the individuals [58]. The overall framework of NSGA-II is summarized in Algorithm 2.NSGA-II 是一种非常流行的基于个体之间支配关系的 MOEA [58]。 算法 2 总结了 NSGA-II 的总体框架。 #表达借鉴-MOEA</li>
+</ol>
+<h3 id="总结-9"><a href="#总结-9" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>实时进化的神经网络</li>
+</ol>
+<h2 id="Evolutionary-Neural-Architecture-Search-by-Mutual-Information-Analysis"><a href="#Evolutionary-Neural-Architecture-Search-by-Mutual-Information-Analysis" class="headerlink" title="Evolutionary Neural Architecture Search by Mutual Information Analysis"></a>Evolutionary Neural Architecture Search by Mutual Information Analysis</h2><ol>
+<li>有一些变异操作</li>
+</ol>
+<h2 id="Sample-Efficient-Neural-Architecture-Search-by-Learning-Actions-for-Monte-Carlo-Tree-Search"><a href="#Sample-Efficient-Neural-Architecture-Search-by-Learning-Actions-for-Monte-Carlo-Tree-Search" class="headerlink" title="Sample-Efficient Neural Architecture Search by Learning Actions for Monte Carlo Tree Search"></a>Sample-Efficient Neural Architecture Search by Learning Actions for Monte Carlo Tree Search</h2><ol>
+<li>超网</li>
+</ol>
+<h2 id="2022-GNN-EA-Graph-Neural-Network-with-Evolutionary-Algorithm-GNN"><a href="#2022-GNN-EA-Graph-Neural-Network-with-Evolutionary-Algorithm-GNN" class="headerlink" title="2022-GNN-EA: Graph Neural Network with Evolutionary Algorithm  #GNN"></a>2022-GNN-EA: Graph Neural Network with Evolutionary Algorithm  #GNN</h2><ol>
+<li>两个细粒度的交叉操作</li>
+<li>在进入下一代时继承了权重和架构，降低了再培训的成本 #创新点-交叉</li>
+<li>只选择劣势个体进行变异 #创新点-变异</li>
+</ol>
+<h2 id="2021-An-Efficient-and-Flexible-Automatic-Search-Algorithm-for-Convolution-Network-Architectures-CNN"><a href="#2021-An-Efficient-and-Flexible-Automatic-Search-Algorithm-for-Convolution-Network-Architectures-CNN" class="headerlink" title="2021-An Efficient and Flexible Automatic Search Algorithm for Convolution Network Architectures #CNN"></a>2021-An Efficient and Flexible Automatic Search Algorithm for Convolution Network Architectures #CNN</h2><ol>
+<li>NAS based on EA has high search efficiency, and it can still search for a better network architecture under limited computing resources. Among them, genetic algorithm (GA) [30] is the classic and most popular EA. It uses a series of biologically-inspired operators to simulate biological evolution, such as crossover, mutation, and selection. GA plays an important role in NAS based on EA.基于EA的NAS搜索效率高，在计算资源有限的情况下仍能搜索到更好的网络架构。 其中，遗传算法（GA）[30]是经典且最受欢迎的EA。 它使用一系列受生物学启发的算子来模拟生物进化，例如交叉、变异和选择。 GA在基于EA的NAS中扮演着重要的角色。 #表达-ENAS</li>
+<li>As a representative of the NAS algorithm, GeneticCNN is based on GA for CNN architecture search. AE-CNN and CNN-GA are also based on GA which uses network architecture variable length coding, and excellent performance RB and DB are used to construct the search space. FAE-CNN has made further improvements on the basis of AE-CNN. It uses a method of divided dataset to shorten the time for architecture search based on GA.作为NAS算法的代表，GeneticCNN是基于GA进行CNN架构搜索的。 AE-CNN和CNN-GA也是在GA的基础上采用网络架构变长编码，性能优异的RB和DB用于构建搜索空间。 FAE-CNN在AE-CNN的基础上做了进一步的改进。 它使用划分数据集的方法来缩短基于遗传算法的体系结构搜索时间。 #表达-ENAS <h3 id="总结-10"><a href="#总结-10" class="headerlink" title="总结"></a>总结</h3></li>
+<li>通过划分数据集来缩短遗传算法的体系结构搜索时间</li>
+</ol>
+<h2 id="2021-Efficiency-Enhancement-of-Evolutionary-Neural-Architecture-Search-via-Training-Free-Initialization-MOEA-NAS"><a href="#2021-Efficiency-Enhancement-of-Evolutionary-Neural-Architecture-Search-via-Training-Free-Initialization-MOEA-NAS" class="headerlink" title="2021-Efficiency Enhancement of Evolutionary Neural Architecture Search via Training-Free Initialization  #MOEA-NAS"></a>2021-Efficiency Enhancement of Evolutionary Neural Architecture Search via Training-Free Initialization  #MOEA-NAS</h2><ol>
+<li>The sampling process is performed as follows. First, T architectures are randomly sampled from the search space. Instead of architecture evaluation via the validation error rate, which requires many epochs of actual model training, we estimate the performance of these architecture via the Synaptic Flow metric [15], which is a zero-cost proxy. The Synaptic Flow metric is used to evaluate the importance of a parameter in a network by approximating the change in the product of all parameters when removing that parameter [15]. To employ the Synaptic Flow metric for estimating the performance of an architecture, we employ the mechanism as in [1], i.e., we calculate the Synaptic Flow metric value of each parameter in the network architecture and take the sum over all parameters.采样过程如下进行。 首先，从搜索空间中随机抽取 T 个架构。 我们不是通过验证错误率来评估架构，这需要实际模型训练的许多时期，而是通过突触流指标 [15] 来评估这些架构的性能，这是一种零成本代理。 突触流指标用于评估网络中参数的重要性，方法是在删除该参数时近似所有参数乘积的变化 [15]。 为了使用突触流度量来估计架构的性能，我们采用了 [1] 中的机制，即，我们计算网络架构中每个参数的突触流度量值，并对所有参数求和。</li>
+<li>适应性不是模型识别准确度，而是一个指标来评估模型<h2 id="2020-CARS-Continuous-Evolution-for-Efficient-Neural-Architecture-Search-MOEA-NAS"><a href="#2020-CARS-Continuous-Evolution-for-Efficient-Neural-Architecture-Search-MOEA-NAS" class="headerlink" title="2020-CARS: Continuous Evolution for Efficient Neural Architecture Search #MOEA-NAS"></a>2020-CARS: Continuous Evolution for Efficient Neural Architecture Search #MOEA-NAS</h2></li>
+</ol>
+<h2 id="2022-Evolutionary-Neural-Architecture-Search-Based-on-Variational-Inference-Bayesian-Convolutional-Neural-Network-CNN"><a href="#2022-Evolutionary-Neural-Architecture-Search-Based-on-Variational-Inference-Bayesian-Convolutional-Neural-Network-CNN" class="headerlink" title="2022-Evolutionary Neural Architecture Search Based on Variational Inference Bayesian Convolutional Neural Network #CNN"></a>2022-Evolutionary Neural Architecture Search Based on Variational Inference Bayesian Convolutional Neural Network #CNN</h2><ol>
+<li>多保真度评估，是防止淘汰下来的个体，由于训练不充分没有表现出良好的精度而淘汰。所以从淘汰的个体中选出有潜力的个体，存储在档案中，该档案包括先前的潜在良好个体及其在先前环境选则中的生存或淘汰信息。使用更多的训练次数进行训练。我的研究是确定有潜力组成优秀个体的组件，组件池 #创新点-借鉴 </li>
+<li>问题？如何确定哪个个体是有潜力的个体？1. 保留多重保真度经常生存的个体，2. 保留在不同保真度下很少经历评估的个体 3. 根据一项评估经常存活的个体 4. 复杂的神经架构</li>
+<li>两种细粒度的交叉操作 #创新点-交叉 </li>
+<li>单点变异 添加额外的节点运算符</li>
+</ol>
+<h2 id="2020-Multi-Task-Learning-for-Multi-Objective-Evolutionary-Neural-Architecture-Search-ENAS"><a href="#2020-Multi-Task-Learning-for-Multi-Objective-Evolutionary-Neural-Architecture-Search-ENAS" class="headerlink" title="2020-Multi-Task Learning for Multi-Objective Evolutionary Neural Architecture Search #ENAS"></a>2020-Multi-Task Learning for Multi-Objective Evolutionary Neural Architecture Search #ENAS</h2><h2 id="2020-A-Classification-Surrogate-Model-based-Evolutionary-Algorithm-for-Neural-Network-Structure-Learning"><a href="#2020-A-Classification-Surrogate-Model-based-Evolutionary-Algorithm-for-Neural-Network-Structure-Learning" class="headerlink" title="2020-A Classification Surrogate Model based Evolutionary Algorithm for Neural Network Structure Learning"></a>2020-A Classification Surrogate Model based Evolutionary Algorithm for Neural Network Structure Learning</h2><ol>
+<li>使用K近邻算法分类器学习架构的近似性能。 #创新点-评估</li>
+<li>两点交叉和轻微变异</li>
+</ol>
+<h2 id="2022-Partial-channel-Noisy-Continuous-Evolution-for-Efficient-Neural-Architecture-Search"><a href="#2022-Partial-channel-Noisy-Continuous-Evolution-for-Efficient-Neural-Architecture-Search" class="headerlink" title="2022-Partial channel-Noisy Continuous Evolution for Efficient Neural Architecture Search"></a>2022-Partial channel-Noisy Continuous Evolution for Efficient Neural Architecture Search</h2><h2 id="2021-Self-Supervised-Representation-Learning-for-Evolutionary-Neural-Architecture-Search-CNN"><a href="#2021-Self-Supervised-Representation-Learning-for-Evolutionary-Neural-Architecture-Search-CNN" class="headerlink" title="2021-Self-Supervised Representation Learning for Evolutionary Neural Architecture Search #CNN"></a>2021-Self-Supervised Representation Learning for Evolutionary Neural Architecture Search #CNN</h2><ol>
+<li>基于路径编码</li>
+<li>第一种方法设计了一个具有两个独立分支的基于图神经网络的模型，并利用两个不同神经架构的图编辑距离作为监督来强制模型生成有意义的架构表示。 受对比学习的启发，第二种方法提出了一种新的对比学习算法，该算法利用中心特征向量作为代理来对比正对和负对。</li>
+</ol>
+<h2 id="2022-Evolutionary-Neural-Architecture-Search-for-Automatic-Esophageal-Lesion-Identification-and-Segmentation。-CNN"><a href="#2022-Evolutionary-Neural-Architecture-Search-for-Automatic-Esophageal-Lesion-Identification-and-Segmentation。-CNN" class="headerlink" title="2022-Evolutionary Neural Architecture Search for Automatic Esophageal Lesion Identification and Segmentation。 #CNN"></a>2022-Evolutionary Neural Architecture Search for Automatic Esophageal Lesion Identification and Segmentation。 #CNN</h2><ol>
+<li>oneshot supernet</li>
+</ol>
+<h2 id="2021-An-Immune-Inspired-Approach-to-Macro-Level-Neural-Ensemble-Search-NAS-CEC-CNN"><a href="#2021-An-Immune-Inspired-Approach-to-Macro-Level-Neural-Ensemble-Search-NAS-CEC-CNN" class="headerlink" title="2021-An Immune-Inspired Approach to Macro-Level Neural Ensemble Search #NAS #CEC #CNN"></a>2021-An Immune-Inspired Approach to Macro-Level Neural Ensemble Search #NAS #CEC #CNN</h2><ol>
+<li>基于人工免疫系统的神经架构搜索</li>
+<li>讨论了微观和宏观搜索空间的特征</li>
+<li>此研究重点探索AIS神经免疫系统是否可以在宏观层面的NES神经集成搜索中带来显著好处，以及这种方法是否可以代替传统的NAS</li>
+</ol>
+<h2 id="2022-A-Cell-Based-Fast-Memetic-Algorithm-for-Automated-Convolutional-Neural-Architecture-Design-NAS-Trans-CNN"><a href="#2022-A-Cell-Based-Fast-Memetic-Algorithm-for-Automated-Convolutional-Neural-Architecture-Design-NAS-Trans-CNN" class="headerlink" title="2022-A Cell-Based Fast Memetic Algorithm for Automated Convolutional Neural Architecture Design #NAS #Trans #CNN"></a>2022-A Cell-Based Fast Memetic Algorithm for Automated Convolutional Neural Architecture Design #NAS #Trans #CNN</h2><ol>
+<li>Keeping this in mind, in this article, we propose an efﬁcient memetic algorithm (MA) for automated convolutional neural network (CNN) architecture search. In contrast to existing EO algorithms for CNN architecture design, a new cell-based architecture search space, and new global and local search operators are proposed for CNN architecture search. To further improve the efﬁciency of our proposed algorithm, we develop a one-epoch-based performance estimation strategy without any pretrained models to evaluate each found architecture on the training datasets.牢记这一点，在本文中，我们提出了一种用于自动卷积神经网络 (CNN) 架构搜索的高效模因算法 (MA)。 与用于 CNN 架构设计的现有 EO 算法相比，提出了一种新的基于单元的架构搜索空间，以及新的全局和局部搜索算子用于 CNN 架构搜索。 为了进一步提高我们提出的算法的效率，我们开发了一种基于一个时期的性能估计策略，没有任何预训练模型来评估训练数据集上找到的每个架构。 #创新点-搜索空间-搜索策略-评估策略</li>
+<li>基于单元的搜索空间，分为卷积空间和池化空间两种。卷积空间称为全局搜索算子，池化为局部搜索算子。</li>
+<li>评估策略是搜索出单元后，采用固定的复制和排列顺序评估。基于成功的神经架构是重复简单块的设想。</li>
+<li>Keeping the above in mind, in this article, we propose an efﬁcient memetic algorithm (MA) for automated convolutional neural architecture design, which takes both high-quality CNN architecture search capability and search efﬁciency into consideration. In particular, as the processes of convolution and pooling in CNN correspond to the learning of deep features and the reduction of the dimensionality of the convolution layer output, respectively, these two processes serve as the global learning and local reﬁnement in the deep learning procedure. Taking this cue, based on the popular cell-based search space [23], we ﬁrst propose a new cell-based search space that considers either convolution or pooling between hidden layers and possesses a smaller search space in contrast to existing cell-based search spaces. Next, with the new designed search space, we propose an efﬁcient MA with global search exploring the architectures of convolution, while local search exploits the operations of pooling. Moreover, to further enhance the search efﬁciency of CNN architectures, as our proposed algorithm separates the searches of convolution and pooling architectures, which could lead to CNN architectures with stable performance, we propose to use a one-epoch-based evaluation strategy that estimates the performance of the obtained CNN model by training it on the target dataset for only考虑到上述情况，在本文中，我们提出了一种用于自动卷积神经架构设计的高效模因算法 (MA)，该算法同时考虑了高质量的 CNN 架构搜索能力和搜索效率。 特别地，由于 CNN 中的卷积和池化过程分别对应于深度特征的学习和卷积层输出的降维，这两个过程在深度学习过程中充当全局学习和局部细化。 以此为线索，基于流行的基于单元格的搜索空间[23]，我们首先提出了一种新的基于单元格的搜索空间，它考虑了隐藏层之间的卷积或池化，并且与现有的基于单元格的搜索相比具有更小的搜索空间空间。 接下来，使用新设计的搜索空间，我们提出了一个高效的 MA，其中全局搜索探索卷积的体系结构，而局部搜索则利用池化操作。 此外，为了进一步提高 CNN 架构的搜索效率，由于我们提出的算法将卷积和池化架构的搜索分开，这可能导致 CNN 架构具有稳定的性能，我们建议使用基于一个时期的评估策略来估计 通过仅在目标数据集上训练获得的 CNN 模型的性能。 #创新点-基于cell</li>
+<li>This section presents the details of our proposed Memetic Search of Neural Architecture Search for automated CNN design (MSNAS for short). In particular, the outline of the proposed algorithm is summarized in Fig. 2. As depicted in Fig. 2, the search process starts with search space construction and population initialization; after evaluation of the generated CNN architectures, the ES process will be performed iteratively until a predeﬁned stopping criterion is satisﬁed. The obtained best CNN architecture is then the output of the proposed algorithm. In contrast to existing ES-based NAS algorithms, the proposed algorithm mainly differs in the following aspects: search space and solution encoding, search strategy, and architecture performance evaluation. In particular, the proposed search space contains two subspaces: one is for convolution operators and the other is for pooling operators. Based on this, a modiﬁed DAG [19] is developed for solution encoding. Next, the proposed memetic search also contains two types of search operators, i.e., the global search for convolution architecture and local reﬁnement for pooling architecture. For architecture performance evaluation, a new and efﬁcient performance evaluation strategy, which trains the optimized CNN models for only one epoch, is developed to roughly estimate the performance of different found CNN architectures.本节介绍了我们提出的用于自动化 CNN 设计（简称 MSNAS）的神经结构模因搜索的详细信息。 特别是，图 2 总结了所提出算法的概要。如图 2 所示，搜索过程从搜索空间构建和种群初始化开始； 在评估生成的 CNN 架构之后，ES 过程将迭代执行，直到满足预定义的停止标准。 获得的最佳 CNN 架构是所提出算法的输出。 与现有的基于 ES 的 NAS 算法相比，所提出的算法主要在以下方面有所不同：搜索空间和解决方案编码、搜索策略和体系结构性能评估。 特别是，建议的搜索空间包含两个子空间：一个用于卷积运算符，另一个用于池化运算符。 在此基础上，开发了一种改进的 DAG [19] 用于解决方案编码。 接下来，拟议的模因搜索还包含两种类型的搜索运算符，即卷积架构的全局搜索和池化架构的局部细化。 对于架构性能评估，开发了一种新的高效性能评估策略，该策略仅训练一个时期的优化 CNN 模型，以粗略估计已发现的不同 CNN 架构的性能。</li>
+</ol>
+<h2 id="2021-Neural-Architecture-Transfer-ENAS-重点参考"><a href="#2021-Neural-Architecture-Transfer-ENAS-重点参考" class="headerlink" title="2021-Neural Architecture Transfer #ENAS  #重点参考"></a>2021-Neural Architecture Transfer #ENAS  #重点参考</h2><ol>
+<li>准确度预测器</li>
+<li>进化搜索例程</li>
+<li>超网</li>
+</ol>
+<h2 id="2021-ME-DARTS-Introduce-Multi-stage-Evolution-to-Improve-Differentiable-Architecture-Search-NAS-参考-相关研究"><a href="#2021-ME-DARTS-Introduce-Multi-stage-Evolution-to-Improve-Differentiable-Architecture-Search-NAS-参考-相关研究" class="headerlink" title="2021-ME-DARTS_Introduce_Multi-stage_Evolution_to_Improve_Differentiable_Architecture_Search #NAS #参考-相关研究"></a>2021-ME-DARTS_Introduce_Multi-stage_Evolution_to_Improve_Differentiable_Architecture_Search #NAS #参考-相关研究</h2><ol>
+<li>使用演化算法改进梯度下降神经架构搜索。</li>
+</ol>
+<h2 id="2021-Evolutionary-Algorithm-Based-and-Network-Architecture-Search-Enabled-Multiobjective-Traffic-Classification-E-NAS-信息安全-参考-相关研究"><a href="#2021-Evolutionary-Algorithm-Based-and-Network-Architecture-Search-Enabled-Multiobjective-Traffic-Classification-E-NAS-信息安全-参考-相关研究" class="headerlink" title="2021-Evolutionary Algorithm-Based and Network  Architecture Search-Enabled Multiobjective  Traffic Classification #E-NAS  #信息安全 #参考-相关研究"></a>2021-Evolutionary Algorithm-Based and Network  Architecture Search-Enabled Multiobjective  Traffic Classification #E-NAS  #信息安全 #参考-相关研究</h2><h2 id="2020-Automated-Hardware-and-Neural-Network-Architecture-co-design-of-FPGA-accelerators-using-multi-objective-Neural-Architecture-Search-E-NAS-参考-相关研究"><a href="#2020-Automated-Hardware-and-Neural-Network-Architecture-co-design-of-FPGA-accelerators-using-multi-objective-Neural-Architecture-Search-E-NAS-参考-相关研究" class="headerlink" title="2020-Automated Hardware and Neural Network  Architecture co-design of FPGA accelerators using  multi-objective Neural Architecture Search #E-NAS  #参考-相关研究"></a>2020-Automated Hardware and Neural Network  Architecture co-design of FPGA accelerators using  multi-objective Neural Architecture Search #E-NAS  #参考-相关研究</h2><ol>
+<li>神经架构搜索考虑硬件</li>
+<li>硬件和架构共同考虑的多目标搜索算法</li>
+<li>多目标算法没有什么创新</li>
+</ol>
+<h2 id="2021-Neural-Architecture-Search-Based-Multiobjective-Cognitive-Automation-System-NAS-MOEA-参考-相关研究"><a href="#2021-Neural-Architecture-Search-Based-Multiobjective-Cognitive-Automation-System-NAS-MOEA-参考-相关研究" class="headerlink" title="2021-Neural-Architecture-Search-Based Multiobjective  Cognitive Automation System #NAS  #MOEA  #参考-相关研究"></a>2021-Neural-Architecture-Search-Based Multiobjective  Cognitive Automation System #NAS  #MOEA  #参考-相关研究</h2><ol>
+<li>给定一组偏好，朝着偏好方向进化。比如给定响应度和精确度指标，进化出复合偏好的神经网络</li>
+<li>在神经架构学习过程中，来回向着多个新的偏好共同进化</li>
+<li>可以更快生成符合用户偏好的神经网络</li>
+</ol>
+<h2 id="2021-Neural-Architecture-Search-Based-on-Tabu-Search-and-Evolutionary-Algorithm-NAS"><a href="#2021-Neural-Architecture-Search-Based-on-Tabu-Search-and-Evolutionary-Algorithm-NAS" class="headerlink" title="2021-Neural Architecture Search Based on Tabu Search and Evolutionary Algorithm #NAS"></a>2021-Neural Architecture Search Based on Tabu Search and Evolutionary Algorithm #NAS</h2><ol>
+<li>基于禁忌搜索和遗传算法的神经架构搜索</li>
+<li>结合了禁忌搜索理论</li>
+<li>禁忌搜索可以记忆进化历史，跳出局部最优</li>
+<li>当个体的表现不佳时，增大变异是变异点的数量</li>
+</ol>
+<h2 id="2020-Efﬁcient-Evolution-for-Neural-Architecture-Search"><a href="#2020-Efﬁcient-Evolution-for-Neural-Architecture-Search" class="headerlink" title="2020-Efﬁcient Evolution for Neural Architecture Search"></a>2020-Efﬁcient Evolution for Neural Architecture Search</h2><ol>
+<li>创新是使用信息墒，让所有的架构的信息墒降低</li>
+<li>突变时普通的突变</li>
+</ol>
+<h2 id="2020-Particle-Swarm-optimisation-for-Evolving-Deep-Neural-Networks-for-Image-Classification-by-Evolving-and-Stacking-Transferable-Blocks-基于cell-ENAS"><a href="#2020-Particle-Swarm-optimisation-for-Evolving-Deep-Neural-Networks-for-Image-Classification-by-Evolving-and-Stacking-Transferable-Blocks-基于cell-ENAS" class="headerlink" title="2020-Particle_Swarm_optimisation_for_Evolving_Deep_Neural_Networks_for_Image_Classification_by_Evolving_and_Stacking_Transferable_Blocks #基于cell #ENAS"></a>2020-Particle_Swarm_optimisation_for_Evolving_Deep_Neural_Networks_for_Image_Classification_by_Evolving_and_Stacking_Transferable_Blocks #基于cell #ENAS</h2><h2 id="2021-A-Flexible-Variable-length-Particle-Swarm-Optimization-Approach-to-Convolutional-Neural-Network-Architecture-Design-基于可变长基因-ENAS"><a href="#2021-A-Flexible-Variable-length-Particle-Swarm-Optimization-Approach-to-Convolutional-Neural-Network-Architecture-Design-基于可变长基因-ENAS" class="headerlink" title="2021-A_Flexible_Variable-length_Particle_Swarm_Optimization_Approach_to_Convolutional_Neural_Network_Architecture_Design #基于可变长基因 #ENAS"></a>2021-A_Flexible_Variable-length_Particle_Swarm_Optimization_Approach_to_Convolutional_Neural_Network_Architecture_Design #基于可变长基因 #ENAS</h2><h2 id="2021-PONAS-Progressive-One-shot-Neural-Architecture-Search-for-Very-Efﬁcient-Deployment-超网-渐进式搜索"><a href="#2021-PONAS-Progressive-One-shot-Neural-Architecture-Search-for-Very-Efﬁcient-Deployment-超网-渐进式搜索" class="headerlink" title="2021-PONAS: Progressive One-shot Neural Architecture Search for Very Efﬁcient Deployment #超网 #渐进式搜索"></a>2021-PONAS: Progressive One-shot Neural Architecture Search for Very Efﬁcient Deployment #超网 #渐进式搜索</h2><h2 id="2021-DetNAS-Design-Object-Detection-Network-via-One-Shot-Neural-Architecture-Search-1-NAS-目标检测-共享权重-渐进式搜索"><a href="#2021-DetNAS-Design-Object-Detection-Network-via-One-Shot-Neural-Architecture-Search-1-NAS-目标检测-共享权重-渐进式搜索" class="headerlink" title="2021-DetNAS_Design_Object_Detection_Network_via_One-Shot_Neural_Architecture_Search (1) #NAS #目标检测 #共享权重 #渐进式搜索"></a>2021-DetNAS_Design_Object_Detection_Network_via_One-Shot_Neural_Architecture_Search (1) #NAS #目标检测 #共享权重 #渐进式搜索</h2><ol>
+<li>NAS应用与目标检测</li>
+</ol>
+<h2 id="2020-Efficient-Search-for-the-Number-of-Channels-for-Convolutional-Neural-Networks"><a href="#2020-Efficient-Search-for-the-Number-of-Channels-for-Convolutional-Neural-Networks" class="headerlink" title="2020-Efficient_Search_for_the_Number_of_Channels_for_Convolutional_Neural_Networks"></a>2020-Efficient_Search_for_the_Number_of_Channels_for_Convolutional_Neural_Networks</h2><ol>
+<li>搜索神经网络通道数</li>
+</ol>
+<h2 id="2021-Trends-in-Neural-Architecture-Search-Towards-the-Acceleration-of-Search-综述-参考-相关研究"><a href="#2021-Trends-in-Neural-Architecture-Search-Towards-the-Acceleration-of-Search-综述-参考-相关研究" class="headerlink" title="2021-Trends_in_Neural_Architecture_Search_Towards_the_Acceleration_of_Search #综述 #参考-相关研究"></a>2021-Trends_in_Neural_Architecture_Search_Towards_the_Acceleration_of_Search #综述 #参考-相关研究</h2><h2 id="2020-An-Evolutionary-Approach-to-Variational-Autoencoders"><a href="#2020-An-Evolutionary-Approach-to-Variational-Autoencoders" class="headerlink" title="2020-An_Evolutionary_Approach_to_Variational_Autoencoders"></a>2020-An_Evolutionary_Approach_to_Variational_Autoencoders</h2><p>#变分自动编码器搜索 #参考-相关研究 </p>
+<h2 id="2021-Trends-in-Neural-Architecture-Search-Towards-the-Acceleration-of-Search"><a href="#2021-Trends-in-Neural-Architecture-Search-Towards-the-Acceleration-of-Search" class="headerlink" title="2021-Trends_in_Neural_Architecture_Search_Towards_the_Acceleration_of_Search"></a>2021-Trends_in_Neural_Architecture_Search_Towards_the_Acceleration_of_Search</h2><ol>
+<li>In this paper, the research topics of NAS are organized inthe way illustrated in Fig. 1. From a macroscopic perspective,NAS components can be categorized as the search space definition, search strategy, and performance evaluation criterion.。从宏观的角度来看，  NAS 组件可以分为搜索空间定义、搜索策略和性能评估标准</li>
+</ol>
+<h2 id="2019-A-Graph-Based-Encoding-for-Evolutionary-Convolutional-Neural-Network-Architecture-Design-1"><a href="#2019-A-Graph-Based-Encoding-for-Evolutionary-Convolutional-Neural-Network-Architecture-Design-1" class="headerlink" title="2019-A_Graph-Based_Encoding_for_Evolutionary_Convolutional_Neural_Network_Architecture_Design-1"></a>2019-A_Graph-Based_Encoding_for_Evolutionary_Convolutional_Neural_Network_Architecture_Design-1</h2><ol>
+<li>我们提出的编码方法中，我们避免使用全连接层。这与相关  工作[15]、[16]中采用的方法一致；全连接层由于其密集连接而容易过度拟合[19]。 #经验</li>
+</ol>
+<h2 id="2021-FBNetV3-Joint-Architecture-Recipe-Search-using-Predictor-Pretraining"><a href="#2021-FBNetV3-Joint-Architecture-Recipe-Search-using-Predictor-Pretraining" class="headerlink" title="2021-FBNetV3: Joint Architecture-Recipe Search using Predictor Pretraining"></a>2021-FBNetV3: Joint Architecture-Recipe Search using Predictor Pretraining</h2><ol>
+<li>可以生成一系统的神经架构，而不是只生成一个架构。可以根据自己的实际部署需求选择神经架构  #参考-研究优势</li>
+<li>架构准确性预测器又多层感知机构成，训练预测器需要很大的计算量。预测器的训练仍然需要很大的计算成本。 #研究-缺点</li>
+<li>演化算法基于自适应遗传算法（未创新）</li>
+</ol>
+<h2 id="2022-Exploiting-Operation-Importance-for-Differentiable-Neural-Architecture-Search-参考-相关研究"><a href="#2022-Exploiting-Operation-Importance-for-Differentiable-Neural-Architecture-Search-参考-相关研究" class="headerlink" title="2022-Exploiting_Operation_Importance_for_Differentiable_Neural_Architecture_Search #参考-相关研究"></a>2022-Exploiting_Operation_Importance_for_Differentiable_Neural_Architecture_Search #参考-相关研究</h2><ol>
+<li>利用高阶马尔科夫链的搜索策略，缩小搜索空间，提高搜索效率和准确率</li>
+<li>提出判断操作重要性指标，识别准确度与训练epoch的比值</li>
+<li>架构参数总是波动，无法反映操作的重要性</li>
+<li>每个操作有 live 和die两种状态，哪个状态概率高就是哪个状态，die状态会在20epoch之后剪掉</li>
+</ol>
+<h2 id="2020-A-Memetic-Algorithm-for-Evolving-Deep-Convolutional-Neural-Network-in-Image-Classification-参考-相关研究"><a href="#2020-A-Memetic-Algorithm-for-Evolving-Deep-Convolutional-Neural-Network-in-Image-Classification-参考-相关研究" class="headerlink" title="2020-A_Memetic_Algorithm_for_Evolving_Deep_Convolutional_Neural_Network_in_Image_Classification #参考-相关研究"></a>2020-A_Memetic_Algorithm_for_Evolving_Deep_Convolutional_Neural_Network_in_Image_Classification #参考-相关研究</h2><ol>
+<li>MA模因算法就是在传统的进化算法基础上加入了局部搜索操作 即加入连接序列</li>
+<li>最后只能选出一个架构，并不可以根据场景选择不同特点的神经架构 #研究-缺点 </li>
+</ol>
+<h2 id="2021-Evolutionary-Optimization-of-Residual-Neural-Network-Architectures-for-Modulation-Classification"><a href="#2021-Evolutionary-Optimization-of-Residual-Neural-Network-Architectures-for-Modulation-Classification" class="headerlink" title="2021-Evolutionary Optimization of Residual Neural  Network Architectures for Modulation Classification"></a>2021-Evolutionary Optimization of Residual Neural  Network Architectures for Modulation Classification</h2><ol>
+<li>使用模因算法的双目标网络搜索</li>
+<li>使用了自适应突变和交叉</li>
+<li>通过显示模型复杂度初始化个体</li>
+</ol>
+<h2 id="2022-Evolutionary-Architectural-Search-for-Generative-Adversarial-Networks"><a href="#2022-Evolutionary-Architectural-Search-for-Generative-Adversarial-Networks" class="headerlink" title="2022-Evolutionary Architectural Search for Generative Adversarial Networks"></a>2022-Evolutionary Architectural Search for Generative Adversarial Networks</h2><ol>
+<li>ENAS优化GAN</li>
+</ol>
+<h2 id="2021-Automatic-Design-of-Convolutional-Neural-Network-Architectures-Under-Resource-Constraints"><a href="#2021-Automatic-Design-of-Convolutional-Neural-Network-Architectures-Under-Resource-Constraints" class="headerlink" title="2021-Automatic Design of Convolutional Neural Network Architectures Under Resource Constraints"></a>2021-Automatic Design of Convolutional Neural Network Architectures Under Resource Constraints</h2><ol>
+<li>修复和惩罚</li>
+<li>对复杂度高的个体降低适应度</li>
+<li>修复是替换复杂度低的个体</li>
+</ol>
+<h2 id="2022-Evolutionary-Shallowing-Deep-Neural-Networks-at-Block-Levels"><a href="#2022-Evolutionary-Shallowing-Deep-Neural-Networks-at-Block-Levels" class="headerlink" title="2022-Evolutionary_Shallowing_Deep_Neural_Networks_at_Block_Levels"></a>2022-Evolutionary_Shallowing_Deep_Neural_Networks_at_Block_Levels</h2><ol>
+<li>遗传算法搜索浅层网络，涉及知识蒸馏</li>
+<li>使用现有网络结构知识初始化种群</li>
+</ol>
+<h2 id="2019-Accuracy-vs-Efficiency-Achieving-Both-through-FPGA-Implementation-Aware-Neural-Architecture-Search"><a href="#2019-Accuracy-vs-Efficiency-Achieving-Both-through-FPGA-Implementation-Aware-Neural-Architecture-Search" class="headerlink" title="2019-Accuracy_vs._Efficiency_Achieving_Both_through_FPGA-Implementation_Aware_Neural_Architecture_Search"></a>2019-Accuracy_vs._Efficiency_Achieving_Both_through_FPGA-Implementation_Aware_Neural_Architecture_Search</h2><ol>
+<li>However, most of them take a long time to find the optimal architecture due to the huge search space and the lengthy training processneeded to evaluate each candidate. In addition, most of them aimat accuracy only and do not take into consideration the hardwarethat will be used to implement the architecture. This will potentially lead to excessive latencies beyond specifications, renderingthe resulting architectures useless. To address both issues, in thispaper we use Field Programmable Gate Arrays (FPGAs) as a vehicle to present a novel hardware-aware NAS framework, namelyFNAS, which will provide an optimal neural architecture with latency guaranteed to meet the specification.然而，由于巨大的搜索空间和评估每个候选者所需的漫长训练过程，他们中的大多数人需要很长时间才能找到最佳架构。 此外，它们中的大多数仅以准确性为目标，而没有考虑将用于实现该体系结构的硬件。 这可能会导致超出规范的过度延迟，从而使生成的架构变得无用。 为了解决这两个问题，在本文中，我们使用现场可编程门阵列 (FPGA) 作为载体来展示一种新颖的硬件感知 NAS 框架，即 FNAS，它将提供最佳的神经架构，并保证延迟满足规范。 #参考-引出研究</li>
+<li>深度神经网络 (DNN) 的性能主要由其架构决定。然而，DNN 架构的设计在很大程度上依赖于人类的专业知识和劳动，直到最近开发出可以自动探索特定应用程序的最佳架构的神经架构搜索 (NAS)。现有的研究工作 [6, 16] 已经证明，NAS 可以生成与人类发明的 DNN（例如，AlexNet、VGGNet、GoogleNet 和ResNet）相比具有竞争力甚至更高准确性的 DNN。然而，NAS 的普及受到其效率的阻碍。正如 [16] 中所报告的那样，即使使用数百个 GPU，搜索过程也可能需要几天时间。问题主要在于搜索空间可能很大，并且对于每个候选架构，都需要漫长的训练过程来对其进行评估 #参考-NAS现有缺点</li>
+<li>此外，任何现有 NAS 框架的支柱是准确性是指导搜索的单一目标 [16]。如果生成的架构要部署在云中或者延迟不是关键因素，它们仍然可以工作。但是，如果要在具有延迟规范的硬件上实施该体系结构，则无法保证满足该规范。在这些场景中，NAS 找到的最佳架构根本没有用。 #参考-NAS现有缺点 </li>
+</ol>
+<h2 id="2020-Deep-neural-network-for-load-forecasting-centred-on-architecture-evolution-参考-相关研究"><a href="#2020-Deep-neural-network-for-load-forecasting-centred-on-architecture-evolution-参考-相关研究" class="headerlink" title="2020-Deep_neural_network_for_load_forecasting_centred_on_architecture_evolution #参考-相关研究"></a>2020-Deep_neural_network_for_load_forecasting_centred_on_architecture_evolution #参考-相关研究</h2><ol>
+<li>A neural architecture search method for load forecasting,which can be used to study the electricity consumptionof schools, buildings and residential facilities. For thepurposes of this paper, the method is used for residentialload forecasting. To the best of the authors’ knowledge,this is the first work that uses neural architecture searchbased on evolutionary techniques to learn electricityconsumption behaviours for the STLF problem.一种用于负荷预测的神经结构搜索方法，可用于研究学校、建筑物和住宅设施的用电量。 出于本文的目的，该方法用于住宅负荷预测。 据作者所知，这是第一个使用基于进化技术的神经结构搜索来学习 STLF 问题的耗电行为的工作。 #参考-研究必要性</li>
+</ol>
+<h2 id="2020-Evolutionary-Algorithm-Based-Residual-Block-Search-for-Compression-Artifact-Removal"><a href="#2020-Evolutionary-Algorithm-Based-Residual-Block-Search-for-Compression-Artifact-Removal" class="headerlink" title="2020-Evolutionary_Algorithm_Based_Residual_Block_Search_for_Compression_Artifact_Removal"></a>2020-Evolutionary_Algorithm_Based_Residual_Block_Search_for_Compression_Artifact_Removal</h2><ol>
+<li>强调探索而不是利用，则增大了最大世代数</li>
+<li>nsga2 多目标优化 #MOEA-NAS </li>
+</ol>
+<h2 id="2020-NASCaps-A-Framework-for-Neural-Architecture-Search-to-Optimize-the-Accuracy-and-Hardware-Efficiency-of-Convolutional-Capsule-Networks-创新-NSGAII"><a href="#2020-NASCaps-A-Framework-for-Neural-Architecture-Search-to-Optimize-the-Accuracy-and-Hardware-Efficiency-of-Convolutional-Capsule-Networks-创新-NSGAII" class="headerlink" title="2020-NASCaps: A Framework for Neural Architecture Search  to Optimize the Accuracy and Hardware Efficiency of  Convolutional Capsule Networks #创新-NSGAII"></a>2020-NASCaps: A Framework for Neural Architecture Search  to Optimize the Accuracy and Hardware Efficiency of  Convolutional Capsule Networks #创新-NSGAII</h2><h2 id="2020-SPARSE-CNN-ARCHITECTURE-SEARCH-SCAS"><a href="#2020-SPARSE-CNN-ARCHITECTURE-SEARCH-SCAS" class="headerlink" title="2020-SPARSE CNN ARCHITECTURE SEARCH (SCAS)"></a>2020-SPARSE CNN ARCHITECTURE SEARCH (SCAS)</h2><ol>
+<li>生成架构再使用修剪器修建架构为稀疏，为权重设置一个阈值，根据阈值对架构修剪</li>
+</ol>
+<h2 id="2020-Statistically-driven-Coral-Reef-metaheuristic-for-automatic-hyperparameter-setting-and-architecture-design-of-Convolutional-Neural-Networks-参考-相关研究"><a href="#2020-Statistically-driven-Coral-Reef-metaheuristic-for-automatic-hyperparameter-setting-and-architecture-design-of-Convolutional-Neural-Networks-参考-相关研究" class="headerlink" title="2020-Statistically-driven_Coral_Reef_metaheuristic_for_automatic_hyperparameter_setting_and_architecture_design_of_Convolutional_Neural_Networks  #参考-相关研究"></a>2020-Statistically-driven_Coral_Reef_metaheuristic_for_automatic_hyperparameter_setting_and_architecture_design_of_Convolutional_Neural_Networks  #参考-相关研究</h2><h2 id="2021-Comparative-Performances-of-Neural-Networks-of-Variant-Architectures-Trained-with-Backpropagation-and-Differential-Evolution"><a href="#2021-Comparative-Performances-of-Neural-Networks-of-Variant-Architectures-Trained-with-Backpropagation-and-Differential-Evolution" class="headerlink" title="2021-Comparative_Performances_of_Neural_Networks_of_Variant_Architectures_Trained_with_Backpropagation_and_Differential_Evolution"></a>2021-Comparative_Performances_of_Neural_Networks_of_Variant_Architectures_Trained_with_Backpropagation_and_Differential_Evolution</h2><ol>
+<li>比较梯度下降和差分遗传优化训练神经网络的权重，实验证明在嘈杂的工业数据集回归精度更好，在流行的分类数据集上表现也很好。</li>
+</ol>
+<h2 id="2021-Evolutionary-Optimization-of-Neural-Architectures-in-Remote-Sensing-Classification-Problems"><a href="#2021-Evolutionary-Optimization-of-Neural-Architectures-in-Remote-Sensing-Classification-Problems" class="headerlink" title="2021-Evolutionary_Optimization_of_Neural_Architectures_in_Remote_Sensing_Classification_Problems"></a>2021-Evolutionary_Optimization_of_Neural_Architectures_in_Remote_Sensing_Classification_Problems</h2><ol>
+<li>演化搜索遥感分类 #参考-相关研究 </li>
+</ol>
+<h2 id="2022-Competitive-Decomposition-Based-Multiobjective-Architecture-Search-for-the-Dendritic-Neural-Model"><a href="#2022-Competitive-Decomposition-Based-Multiobjective-Architecture-Search-for-the-Dendritic-Neural-Model" class="headerlink" title="2022-Competitive Decomposition-Based Multiobjective Architecture Search for the Dendritic Neural Model"></a>2022-Competitive Decomposition-Based Multiobjective Architecture Search for the Dendritic Neural Model</h2><ol>
+<li>多个目标分解为单个目标，每个目标分配一个种群，各个种群重叠部分个体</li>
+</ol>
+<h2 id="2022-SpiderNet-Hybrid-Differentiable-Evolutionary-Architecture-Search-via-Train-Free-Metrics-CNN"><a href="#2022-SpiderNet-Hybrid-Differentiable-Evolutionary-Architecture-Search-via-Train-Free-Metrics-CNN" class="headerlink" title="2022-SpiderNet_Hybrid_Differentiable-Evolutionary_Architecture_Search_via_Train-Free_Metrics  #CNN"></a>2022-SpiderNet_Hybrid_Differentiable-Evolutionary_Architecture_Search_via_Train-Free_Metrics  #CNN</h2><ol>
+<li>重新突变形式</li>
+<li>修剪 剪枝</li>
+<li>先得到足够大的模型，再进行剪枝</li>
+<li>结合了硬件指标</li>
+</ol>
+<h2 id="2021-Enhanced-Gradient-for-Differentiable-Architecture-Search"><a href="#2021-Enhanced-Gradient-for-Differentiable-Architecture-Search" class="headerlink" title="2021-Enhanced_Gradient_for_Differentiable_Architecture_Search"></a>2021-Enhanced_Gradient_for_Differentiable_Architecture_Search</h2><ol>
+<li>块级搜索和网络级搜索 #参考-相关研究 </li>
+</ol>
+<h2 id="2021-Enhanced-Gradient-for-Differentiable-Architecture-Search-1"><a href="#2021-Enhanced-Gradient-for-Differentiable-Architecture-Search-1" class="headerlink" title="2021-Enhanced_Gradient_for_Differentiable_Architecture_Search"></a>2021-Enhanced_Gradient_for_Differentiable_Architecture_Search</h2><p>#CNN </p>
+<ol>
+<li>块级搜索和网络级搜索</li>
+</ol>
+<h2 id="2023-Enhanced-Gradient-for-Differentiable-Architecture-Search-1-NAS-CNN-MOEA"><a href="#2023-Enhanced-Gradient-for-Differentiable-Architecture-Search-1-NAS-CNN-MOEA" class="headerlink" title="2023-Enhanced_Gradient_for_Differentiable_Architecture_Search (1) #NAS #CNN #MOEA"></a>2023-Enhanced_Gradient_for_Differentiable_Architecture_Search (1) #NAS #CNN #MOEA</h2><ol>
+<li>面向块级搜索</li>
+</ol>
+<h2 id="2023-Bilinear-Scoring-Function-Search-for-Knowledge-Graph-Learning-ENAS-图搜索"><a href="#2023-Bilinear-Scoring-Function-Search-for-Knowledge-Graph-Learning-ENAS-图搜索" class="headerlink" title="2023-Bilinear_Scoring_Function_Search_for_Knowledge_Graph_Learning #ENAS #图搜索"></a>2023-Bilinear_Scoring_Function_Search_for_Knowledge_Graph_Learning #ENAS #图搜索</h2><ol>
+<li>渐进搜索</li>
+</ol>
+<h2 id="2022-Surrogate-Assisted-Particle-Swarm-Optimization-for-Evolving-Variable-Length-Transferable-Blocks-for-Image-Classification"><a href="#2022-Surrogate-Assisted-Particle-Swarm-Optimization-for-Evolving-Variable-Length-Transferable-Blocks-for-Image-Classification" class="headerlink" title="2022-Surrogate-Assisted_Particle_Swarm_Optimization_for_Evolving_Variable-Length_Transferable_Blocks_for_Image_Classification"></a>2022-Surrogate-Assisted_Particle_Swarm_Optimization_for_Evolving_Variable-Length_Transferable_Blocks_for_Image_Classification</h2><p>#创新点-代理 #可迁移 #ENAS #代理数据集 #代理-SVM</p>
+<ol>
+<li>使用loss来表示可迁移性</li>
+</ol>
+<h2 id="2022-Surrogate-assisted-Multiobjective-Neural-Architecture-Search-for-Real-time-Semantic-Segmentation-MOEA-创新-NSGAII"><a href="#2022-Surrogate-assisted-Multiobjective-Neural-Architecture-Search-for-Real-time-Semantic-Segmentation-MOEA-创新-NSGAII" class="headerlink" title="2022-Surrogate-assisted_Multiobjective_Neural_Architecture_Search_for_Real-time_Semantic_Segmentation #MOEA #创新-NSGAII"></a>2022-Surrogate-assisted_Multiobjective_Neural_Architecture_Search_for_Real-time_Semantic_Segmentation #MOEA #创新-NSGAII</h2><ol>
+<li>分层筛选<h2 id="2022-Surrogate-Assisted-Cooperative-Co-evolutionary-Reservoir-Architecture-Search-for-Liquid-State-Machines"><a href="#2022-Surrogate-Assisted-Cooperative-Co-evolutionary-Reservoir-Architecture-Search-for-Liquid-State-Machines" class="headerlink" title="2022-Surrogate-Assisted_Cooperative_Co-evolutionary_Reservoir_Architecture_Search_for_Liquid_State_Machines"></a>2022-Surrogate-Assisted_Cooperative_Co-evolutionary_Reservoir_Architecture_Search_for_Liquid_State_Machines</h2></li>
+<li>随机森林代理</li>
+</ol>
+<h2 id="2022-Model-Compression-Based-on-Differentiable-Network-Channel-Pruning"><a href="#2022-Model-Compression-Based-on-Differentiable-Network-Channel-Pruning" class="headerlink" title="2022-Model_Compression_Based_on_Differentiable_Network_Channel_Pruning"></a>2022-Model_Compression_Based_on_Differentiable_Network_Channel_Pruning</h2><ol>
+<li>可谓分方法模型压缩 剪枝</li>
+</ol>
+<h2 id="2022-Co-Optimization-of-DNN-and-Hardware-Configurations-on-Edge-GPUs"><a href="#2022-Co-Optimization-of-DNN-and-Hardware-Configurations-on-Edge-GPUs" class="headerlink" title="2022-Co-Optimization_of_DNN_and_Hardware_Configurations_on_Edge_GPUs"></a>2022-Co-Optimization_of_DNN_and_Hardware_Configurations_on_Edge_GPUs</h2><p>#创新-NSGAII </p>
+<h2 id="2022-AACP-Model-Compression-by-Accurate-and-Automatic-Channel-Pruning"><a href="#2022-AACP-Model-Compression-by-Accurate-and-Automatic-Channel-Pruning" class="headerlink" title="2022-AACP_Model_Compression_by_Accurate_and_Automatic_Channel_Pruning"></a>2022-AACP_Model_Compression_by_Accurate_and_Automatic_Channel_Pruning</h2><ol>
+<li>模型剪枝 压缩</li>
+</ol>
+<h2 id="2021-Modified-Decomposition-Framework-and-Algorithm-for-Many-objective-Topology-and-Weight-Evolution-of-Neural-Networks"><a href="#2021-Modified-Decomposition-Framework-and-Algorithm-for-Many-objective-Topology-and-Weight-Evolution-of-Neural-Networks" class="headerlink" title="2021-Modified_Decomposition_Framework_and_Algorithm_for_Many-objective_Topology_and_Weight_Evolution_of_Neural_Networks"></a>2021-Modified_Decomposition_Framework_and_Algorithm_for_Many-objective_Topology_and_Weight_Evolution_of_Neural_Networks</h2><p>#MOEA </p>
+<h2 id="2021-Fast-Accurate-and-Lightweight-Super-Resolution-with-Neural-Architecture-Search"><a href="#2021-Fast-Accurate-and-Lightweight-Super-Resolution-with-Neural-Architecture-Search" class="headerlink" title="2021-Fast_Accurate_and_Lightweight_Super-Resolution_with_Neural_Architecture_Search"></a>2021-Fast_Accurate_and_Lightweight_Super-Resolution_with_Neural_Architecture_Search</h2><ol>
+<li>宏观搜索和微观搜索</li>
+</ol>
+<h2 id="2021-Evolving-Neural-Networks-for-Text-Classification-using-Genetic-Algorithm-based-Approaches"><a href="#2021-Evolving-Neural-Networks-for-Text-Classification-using-Genetic-Algorithm-based-Approaches" class="headerlink" title="2021-Evolving_Neural_Networks_for_Text_Classification_using_Genetic_Algorithm-based_Approaches"></a>2021-Evolving_Neural_Networks_for_Text_Classification_using_Genetic_Algorithm-based_Approaches</h2><pre><code>1. 遗传算法文本分类
+</code></pre>
+<h2 id="2021-Evolutionary-Multi-Objective-Model-Compression-for-Deep-Neural-Networks"><a href="#2021-Evolutionary-Multi-Objective-Model-Compression-for-Deep-Neural-Networks" class="headerlink" title="2021-Evolutionary_Multi-Objective_Model_Compression_for_Deep_Neural_Networks"></a>2021-Evolutionary_Multi-Objective_Model_Compression_for_Deep_Neural_Networks</h2><ol>
+<li>模型剪枝， 边缘设备</li>
+<li>多个步骤修剪模型</li>
+</ol>
+<h2 id="2021-Differentiable-Neural-Architecture-Search-for-Extremely-Lightweight-Image-Super-Resolution-CNN"><a href="#2021-Differentiable-Neural-Architecture-Search-for-Extremely-Lightweight-Image-Super-Resolution-CNN" class="headerlink" title="2021-Differentiable_Neural_Architecture_Search_for_Extremely_Lightweight_Image_Super-Resolution #CNN"></a>2021-Differentiable_Neural_Architecture_Search_for_Extremely_Lightweight_Image_Super-Resolution #CNN</h2><ol>
+<li>cell级搜索 网络级搜索 两个都有 #微分</li>
+</ol>
+<h2 id="2021-A-Distributed-Framework-for-EA-Based-NAS"><a href="#2021-A-Distributed-Framework-for-EA-Based-NAS" class="headerlink" title="2021-A_Distributed_Framework_for_EA-Based_NAS"></a>2021-A_Distributed_Framework_for_EA-Based_NAS</h2><ol>
+<li>分布式搜索<h2 id="2021-Particle-Swarm-Optimization-for-Automatically-Evolving-Convolutional-Neural-Networks-for-Image-Classification"><a href="#2021-Particle-Swarm-Optimization-for-Automatically-Evolving-Convolutional-Neural-Networks-for-Image-Classification" class="headerlink" title="2021-Particle_Swarm_Optimization_for_Automatically_Evolving_Convolutional_Neural_Networks_for_Image_Classification"></a>2021-Particle_Swarm_Optimization_for_Automatically_Evolving_Convolutional_Neural_Networks_for_Image_Classification</h2></li>
+<li>粒子群优化</li>
+<li>Evolving_Deep_Convolutional_Neural_Networks_by_Variable-Length_Particle_Swarm_Optimization_for_Image_Classification #粒子群优化</li>
+</ol>
+<p>PRE-NAS_Evolutionary_Neural_Architecture_Search_With_Predictor</p>
+<ol>
+<li>重置权重突变</li>
+</ol>
+<p>2022-Spatio-Temporal_Activity_Recognition_for_Evolutionary_Search_Behavior_Prediction<br>时空活动搜索<br>Two-Level_Genetic_Algorithm_for_Evolving_Convolutional_Neural_Networks_for_Pattern_Recognitin (1)  2022 适应度融合了训练时间 #融合<br>较低保真度的个体计算适应度以节 省时间。<br>OPANAS_One-Shot_Path_Aggregation_Network_Architecture_Search_for_Object_Detection #超网<br>Island_Transpeciation_A_Co-Evolutionary_Neural_Architecture_Search_applied_to_country-scale_air-quality_forecasting #多策略<br>HSCoNAS_Hardware-Software_Co-Design_of_Efficient_DNNs_via_Neural_Architecture_Search #考虑硬件 #NAS #MOEA<br>An_Evolutionary_Algorithm_Taking_Account_of_Epistasis_among_Parameters_for_Black-Box_Discrete_Optimization #贝叶斯 #多样性<br>A_Multipopulation_Evolutionary_Algorithm_for_Solving_Large-Scale_Multimodal_Multiobjective_Optimization_Problems 引导向量引导子种群搜索<br>A_Multi-Objective_Grammatical_Evolution_Framework_to_Generate_Convolutional_Neural_Network_Architectures两个目标 F1分数 准确度<br>Variable-Length_Chromosome_for_Optimizing_the_Structure_of_Recurrent_Neural_Network #NAS 搜索RNN<br>Towards_a_Quantum_based_GA_Search_for_an_Optimal_Artificial_Neural_Networks_Architecture_and_Feature_Selection_to_Model_NOx_Emissions_A_Case_Study 适应性里有复杂度惩罚项 #适应度惩罚<br>Rethinking_Performance_Estimation_in_Neural_Architecture_Search 随机森林学习节点的重要性做剪枝<br>Neural_Architecture_Search_for_Automotive_Grid_Fusion_Networks_Under_Embedded_Hardware_Constraints 车辆上部署模型 CNN<br>2020-Multi-Objective_Evolutionary_Federated_Learning NSGA2 #创新-NSGAII<br>DenseDisp_Resource-Aware_Disparity_Map_Estimation_by_Compressing_Siamese_Neural_Architecture 模拟退火算法<br>CARS_Continuous_Evolution_for_Efficient_Neural_Architecture_Search #创新-NSGAIII<br>RENAS_Reinforced_Evolutionary_Neural_Architecture_Search 强化学习和演化算法结合 #融合<br>Efficient_Evolutionary_Architecture_Search_for_CNN_Optimization_on_GTSRB<br>，排名函数被替换为基于 MAC 数量和架构测试集准确度的 标量字段。标量场是以 100% 精度和 5 · 106 为中心的二维高斯函数<br>Evolving_Deep_Neural_Networks_for_Movie_Box-Office_Revenues_Prediction #创新-NSGAII<br>Collaborative_Self-Perception_Network_Architecture_for_Hyperspectral_Image_Change_Detection 每个任务选择top个体选择进行交叉变异，达成多任务学习 #创新-多任务<br>A_Genetic_Algorithm_Approach_to_Automate_Architecture_Design_for_Acoustic_Scene_Classification #CNN #ENAS<br>Uncertainty_quantification_using_Auto-tuned_Surrogates_of_CFD_model_Simulating_Supersonic_flow_over_tactical_missile_body #创新-NSGAII  #领域-流体力学<br>Incorporation_of_Improved_Differential_Evolution_into_Hunger_Games_Search_Algorithm</p>
+<ol>
+<li>变异在好的个体间进行，变异在坏的个体</li>
+<li>饥饿搜索算法和演化算法结合，有全局和局部的搜索能力</li>
+</ol>
+<p>GLiT_Neural_Architecture_Search_for_Global_and_Local_Image_Transformer</p>
+<ol>
+<li>搜索全局和局部</li>
+<li>粗略搜索和精细搜索 #多级搜索</li>
+<li>搜索Transformer</li>
+</ol>
+<p>FairNAS_Rethinking_Evaluation_Fairness_of_Weight_Sharing_Neural_Architecture_Search</p>
+<ol>
+<li>#创新-NSGAII </li>
+<li>超网训练公平性，单个路径分别梯度下降，然后一起更新超网参数<br>AutoSpace_Neural_Architecture_Search_with_Less_Human_Interference</li>
+<li>#创新-分层搜索空间<br>Optimally_designed_Variational_Autoencoders_for_Efficient_Wind_Characteristics_Modelling<br>⻛的特性（速 度和方向）联合建模为概率质量函数，然后转换为灰度图像并使用优化设计的 VAE 进行预测。这项工作的亮点描述如下：<br>#创新-NSGAII<br>Layers_Sequence_Optimizing_for_Deep_Neural_Networks_using_Multiples_Objectives #MOEA #参考-相关研究 #CNN #创新-NSGAII<br>Hyperparameters_optimization_for_neural_network_training_using_Fractal_Decomposition-based_Algorithm</li>
+<li>基于分形的神经架构搜索， 分形分解算法基于分而治之的思想。分形算法2017年提出，属于新颖算法 #创新-搜索策略-分形分解算法 #CNN<br>Evolving_Deep_Convolutional_Neural_Networks_for_Image_Classification</li>
+<li>说明了不从最小长度进化的好处 #优势-随机长度 #神经网络稳定性</li>
+<li>提出了识别的均值和标准差也作为评价指标</li>
+<li>成。交叉算子执行局部搜索，而变 异执行全局搜索。 #参考-相关研究 </li>
+</ol>
+<p>APQ_Joint_Search_for_Network_Architecture_Pruning_and_Quantization_Policy</p>
+<ol>
+<li>蒸馏 量化<br>Evolution_of_Graph_Classifiers #图搜索<br>自适应突变</li>
+</ol>
+<p>Differentiable_Kernel_Evolution 可微分的核进化<br>Evolving_Image_Classification_Architectures_With_Enhanced_Particle_Swarm_Optimisation<br>粒子群优化，蚁群优化 #CNN 增强的粒子群优化 #传统演化<br>Searching_for_Network_Width_With_Bilaterally_Coupled_Network 通道修剪 剪枝 #CNN  #超网<br>Surrogate-Assisted_and_Filter-Based_Multiobjective_Evolutionary_Feature_Selection_for_Deep_Learning #MOEA 空气质量<br>Searching_a_High_Performance_Feature_Extractor_for_Text_Recognition_Network #超网 #任务-文本识别<br>LightNAS_On_Lightweight_and_Scalable_Neural_Architecture_Search_for_Embedded_Platforms<br>深度神经网络 (DNN) 在各种智能嵌入式场景中越来越受欢迎，例如虚拟现实 (VR)、 对象检测和跟踪等，提供令人印象深刻的性能并实现全新的设备体验 [13] ，[21]。尽管 如此，鉴于网络设计空间过大 [4]、[43]、[22]，手动设计具有竞争力的 DNN 需要大量的 工程工作来确定最佳网络配置，如网络深度和宽度。为了缓解这个问题，神经架构搜索 (NAS) [51] 最近蓬勃发展，这是为了自动化设计高质量的 DNN。 #参考-介绍 #flps-延迟 #考虑硬件<br>Hyperparameters_Optimization_of_Convolutional_Neural_Networks_using_Evolutionary_Algorithms #CNN  #参考-相关研究<br>Fast_Design_Space_Exploration_of_Nonlinear_Systems_Part_II #MOEA #考虑硬件  #创新-NSGAII #电路设计<br>Evolving_Fully_Automated_Machine_Learning_via_Life-Long_Knowledge_Anchors<br>离线学习，终身学习<br>Evolving_Deep_Convolutional_Variational_Autoencoders_for_Image_Classification<br>交叉和变异是遗传算法的两个主要遗传算子。通常，交叉算子起到局部搜 索的作用，以提供编码空间中双染色体的混合。突变随机改变染色体的一部 分以保持种群的多样性，并增加逃避局部最小值作为全局搜索的能力。 #参考-介绍遗传算子 #ENAS #CNN #变分编码器<br>Distilling_Optimal_Neural_Networks_Rapid_Search_in_Diverse_Spaces<br>#创新-NSGAII #创新点-代理 线性精度预测器<br>A_New_Grammar_for_Creating_Convolutional_Neural_Networks_Applied_to_Medical_Image_Classification #创新-NSGAII #f1-score<br>MetaPruning_Meta_Learning_for_Automatic_Neural_Network_Channel_Pruning<br>通道剪枝 #剪枝搜索<br>Automatically_Designing_U-Nets_Using_A_Genetic_Algorithm_for_Tree_Image_Segmentation<br>#ENAS 演化Unet 树木图像分割</p>
+<h1 id="文献记录"><a href="#文献记录" class="headerlink" title="文献记录"></a>文献记录</h1><ol>
+<li>Z. Lu, I. Whalen, V. Boddeti, Y. Dhebar, K. Deb, E. Goodman, and W. Banzhaf, ‘‘NSGA-Net: Neural architecture search using multiobjective genetic algorithm,’’ in Proc. Genetic Evol. Comput. Conf., Jul. 2019, pp. 419–427.</li>
+<li>X. Chu, B. Zhang, and R. Xu, ‘‘Multi-objective reinforced evolution in mobile neural architecture search,’’ in Proc. Eur. Conf. Comput. Vis. Cham, Switzerland: Springer, 2020, pp. 99–113.</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">田山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/03/16/%E7%A7%91%E7%A0%94/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/">http://example.com/2023/03/16/%E7%A7%91%E7%A0%94/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">田山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/03/16/%E7%A7%91%E7%A0%94/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%88%9B%E6%96%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            田山
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/03/16/%E7%A7%91%E7%A0%94/%E6%96%87%E7%8C%AE%E7%B3%BB%E7%BB%9F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            田山
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2023</span>
+            
+            <a href="/about" target="_blank">田山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "1";
+                        var startDate = "19";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:976362661@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=976362661" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 976362661" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

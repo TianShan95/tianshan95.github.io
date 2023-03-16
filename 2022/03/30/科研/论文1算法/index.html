@@ -1,0 +1,1591 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="论文1算法, 田山de博客">
+    <meta name="description" content="配合一本实体笔记本构建双网络协同优化的dataloader20220330
+从最初的一个样本预测下一个样本的模型这样的缺点：
+每个样本更新一次梯度，让优化器非常受单个样本的左右干扰，不利于收敛，同样速度会很慢
+
+
+解决方案
+在强化学习预测网">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>论文1算法 | 田山de博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">田山de博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/galleries" class="waves-effect waves-light">
+      
+      <i class="fas fa-images" style="zoom: 0.6;"></i>
+      
+      <span>相册</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-fighter-jet" style="zoom: 0.6;"></i>
+      
+      <span>导航</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">田山de博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/galleries" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-images"></i>
+			
+			相册
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-fighter-jet"></i>
+			
+			导航
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">论文1算法</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-03-30
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="配合一本实体笔记本"><a href="#配合一本实体笔记本" class="headerlink" title="配合一本实体笔记本"></a>配合一本实体笔记本</h1><h1 id="构建双网络协同优化的dataloader"><a href="#构建双网络协同优化的dataloader" class="headerlink" title="构建双网络协同优化的dataloader"></a>构建双网络协同优化的dataloader</h1><h2 id="20220330"><a href="#20220330" class="headerlink" title="20220330"></a>20220330</h2><ul>
+<li>从最初的一个样本预测下一个样本的模型这样的缺点：<ul>
+<li>每个样本更新一次梯度，让优化器非常受单个样本的左右干扰，不利于收敛，同样速度会很慢</li>
+</ul>
+</li>
+<li>解决方案<ul>
+<li>在强化学习预测网络的部分，输入batchsize个样本的状态向量，输出batchsize个样本的数据长度</li>
+<li>执行方案一：<ul>
+<li>因为强化学习的batchsize样本是在存下来的经验里取到的，所以不需要特别地再构建dataloader，就把图神经网络的输出的特征向量串行输入到强化学习网络</li>
+<li>具体步骤<ol>
+<li>先随机生成batchsize个数据长度，然后数据预备器取出，送入图网络batchsize个数据进行梯度更新，并把生成的batchsize个卷积后的特征向量送入强化学习，依次循环</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>执行方法二：<ul>
+<li>把</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="模型的策略改进"><a href="#模型的策略改进" class="headerlink" title="模型的策略改进"></a>模型的策略改进</h1><h2 id="20220330-1"><a href="#20220330-1" class="headerlink" title="20220330"></a>20220330</h2><h3 id="图神经网络预训练"><a href="#图神经网络预训练" class="headerlink" title="图神经网络预训练"></a>图神经网络预训练</h3><ul>
+<li>使用batchsize并且shuffle的模式进行训练</li>
+</ul>
+<h2 id="强化学习改进"><a href="#强化学习改进" class="headerlink" title="强化学习改进"></a>强化学习改进</h2><h3 id="20220403"><a href="#20220403" class="headerlink" title="20220403"></a>20220403</h3><ol>
+<li>可以按一定的概率随机选择动作，增加灵活性</li>
+<li>updata的次数可以适当增加</li>
+<li>如果同时几个action的分数值是相等的，不加修改程序每次都选择第一个动作，可以修改action的位置来调整</li>
+<li>  对reward正则化 变为-1 ～ 1或其他</li>
+<li>Prioritized 按重要度程度抽样  </li>
+<li>当reward高于baseline时增加采样几率，否则减少</li>
+<li>action总是不变需要扣分，action变化是加分项</li>
+<li>根据domain knowledge 设计更多的 reward 机制，增加灵活性</li>
+<li>增加机器的好奇心</li>
+</ol>
+<h2 id="reward-改进"><a href="#reward-改进" class="headerlink" title="reward 改进"></a>reward 改进</h2><ul>
+<li>如果错的多需要加大惩罚</li>
+</ul>
+<h3 id="20220409"><a href="#20220409" class="headerlink" title="20220409"></a>20220409</h3><ul>
+<li>老版本 Alpha Go一开始使用的是Behavior cloning </li>
+</ul>
+<h1 id="图数据可视化"><a href="#图数据可视化" class="headerlink" title="图数据可视化"></a>图数据可视化</h1><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>根据出入度的大小调整节点的大小</li>
+<li>根据边权重的大小调整边的粗细</li>
+<li>可以得到有向图的指向信息</li>
+<li>不同标签的节点标注不同的颜色</li>
+<li>把state normalize到一个尺度</li>
+</ol>
+<h1 id="遗传算法部分"><a href="#遗传算法部分" class="headerlink" title="遗传算法部分"></a>遗传算法部分</h1><h2 id="图网络模型搜索"><a href="#图网络模型搜索" class="headerlink" title="图网络模型搜索"></a>图网络模型搜索</h2><h3 id="搜索空间"><a href="#搜索空间" class="headerlink" title="搜索空间"></a>搜索空间</h3><ul>
+<li><input disabled="" type="checkbox"> 2022-04-20 14:23:02 是否把 add-self加入搜索空间  （目前没有）</li>
+<li><input disabled="" type="checkbox"> 2022-04-20 14:42:08 是否把 图卷积层内的 concat 作为搜索空间的一部分 （目前没有）</li>
+<li><input disabled="" type="checkbox"> 2022-04-29 21:32:32 是否把 图卷积的每一层的隐藏层作为搜索空间的一部分 （目前没有）</li>
+<li><input disabled="" type="checkbox"> 2022-05-01 16:03:17 是否把 训练的batchsize作为搜索空间搜索 （目前没有）</li>
+</ul>
+<h1 id="卷积部分"><a href="#卷积部分" class="headerlink" title="卷积部分"></a>卷积部分</h1><ul>
+<li>由于图像边界点卷积（边界点参与的计算次数少）问题，是否需要在生成的01二进制图卷积时对二进制图像进行padding</li>
+<li>可否可以合并几位数据做加和在归一化然后做入侵识别</li>
+<li>卷积实验可以对比一下VGG</li>
+<li>2022-08-12 21:04:45 <strong>把每个报文使用一个向量来表示</strong></li>
+</ul>
+<h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><ul>
+<li>增加状态表示的信息</li>
+<li>可视化输入到强化学习的向量，看是否发生了明显的变化</li>
+<li>当奖励累计到一定的负值则重新开始</li>
+<li>Reward 归一化了</li>
+</ul>
+<h2 id="知识归纳"><a href="#知识归纳" class="headerlink" title="知识归纳"></a>知识归纳</h2><ul>
+<li>PPO的前身是TRPO</li>
+</ul>
+<h2 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h2><ul>
+<li>无法应对比较新的模式，可以玩当前游戏，无法适应新游戏–</li>
+</ul>
+<h1 id="数据集部分"><a href="#数据集部分" class="headerlink" title="数据集部分"></a>数据集部分</h1><h2 id="数据集命名"><a href="#数据集命名" class="headerlink" title="数据集命名"></a>数据集命名</h2><h3 id="Car-Hacking-Challenge-Dataset-rev20Mar2021"><a href="#Car-Hacking-Challenge-Dataset-rev20Mar2021" class="headerlink" title="Car_Hacking_Challenge_Dataset_rev20Mar2021"></a>Car_Hacking_Challenge_Dataset_rev20Mar2021</h3><pre class="line-numbers language-none"><code class="language-none">datadir&#x3D;&#39;..&#x2F;data&#x2F;Car_Hacking_Challenge_Dataset_rev20Mar2021&#x2F;0_Preliminary&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>MergeTrainSub_D<ul>
+<li>MergeTrainSub_D_0_1_2_sub_dataset<ul>
+<li>MergeTrainSub_D_0_1_2_sub_random_1_200_500_A</li>
+</ul>
+</li>
+<li>MergeTrainSub_D_0_1_2_sub_processed<ul>
+<li>MergeTrainSub_D_0_1_2_sub_processed/ps_10_nor_true_random_42/dataset_Di_true_200_500.p</li>
+<li>MergeTrainSub_D_0_1_2_sub_processed/ps_10_nor_true_random_42/graphs_list_Di_200_500.p</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="程序并行运行部分"><a href="#程序并行运行部分" class="headerlink" title="程序并行运行部分"></a>程序并行运行部分</h1><p>100个个体分为4份同时运行，每份串行执行25</p>
+<p>每个个体运行的log信息重定向到各自log文件</p>
+<h1 id="程序Pymoo遗传部分"><a href="#程序Pymoo遗传部分" class="headerlink" title="程序Pymoo遗传部分"></a>程序Pymoo遗传部分</h1><ul>
+<li><p>搜索空间共19位</p>
+<table>
+<thead>
+<tr>
+<th align="center">基因位数</th>
+<th align="center">基因位数</th>
+<th align="center">最小值</th>
+<th align="center">最大值</th>
+<th align="center">基因含义解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">是否为有向图</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">图坍缩过程中是否使用正则化</td>
+</tr>
+<tr>
+<td align="center">2-3</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">两个（图坍缩前后）图卷积块的深度</td>
+</tr>
+<tr>
+<td align="center">4-5</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">预测层两个全连接层的比例</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">5</td>
+<td align="center">神经网络Dropout参数</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">3</td>
+<td align="center">神经网络WeightDecay参数</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">3</td>
+<td align="center">神经网络学习率</td>
+</tr>
+<tr>
+<td align="center">9-10</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">每个图卷积块内每次卷积输出特征向量的结合方式</td>
+</tr>
+<tr>
+<td align="center">11-16</td>
+<td align="center">6</td>
+<td align="center">0</td>
+<td align="center">4</td>
+<td align="center">每个图网络输出后经过的激活函数</td>
+</tr>
+<tr>
+<td align="center">17-18</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">两个可变连接层输出经过的激活函数</td>
+</tr>
+<tr>
+<td align="center">合计</td>
+<td align="center">19</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h1 id="目标函数值"><a href="#目标函数值" class="headerlink" title="目标函数值"></a>目标函数值</h1><ul>
+<li><p>params </p>
+<ul>
+<li>最大：279862</li>
+<li>最小：22492</li>
+</ul>
+</li>
+<li><p>flops</p>
+<ul>
+<li>最大: 113016384</li>
+<li>最小: 54379584</li>
+</ul>
+</li>
+</ul>
+<h1 id="程序实行步骤"><a href="#程序实行步骤" class="headerlink" title="程序实行步骤"></a>程序实行步骤</h1><ul>
+<li>图网络部分<ul>
+<li>先训练出超网络的参数</li>
+<li>使用训练出的个体训练mlp</li>
+<li>在训练mlp个体中选出优良个体，作为初始代</li>
+<li>每代个体 数量 60</li>
+<li>每个个体训练 20 epoch</li>
+</ul>
+</li>
+</ul>
+<h1 id="0510任务"><a href="#0510任务" class="headerlink" title="0510任务"></a>0510任务</h1><ul>
+<li>修改 实时获取数据程序 不需要shuffle 并且加上 D_1_2_sub</li>
+<li>在程序结尾验证数据对齐 程序结束时查看 graph剩下的数据多少 conv_can数据集剩下多少，对比一下</li>
+<li>一个一个batch的预测 因为最后graph形不成一个batch 就会结束 会浪费数据，先不管这么多了</li>
+<li>重要任务，<strong>获取两个网络结合之后的入侵检测精度</strong></li>
+<li>主要需要解决和验证<strong>两个数据集的对齐问题</strong></li>
+<li></li>
+</ul>
+<h1 id="差几张图"><a href="#差几张图" class="headerlink" title="差几张图"></a>差几张图</h1><ul>
+<li>图神经网络的总览图</li>
+<li>图神经网络的遗传优化图</li>
+<li>卷积网络的遗传优化图</li>
+</ul>
+<h1 id="结果部分"><a href="#结果部分" class="headerlink" title="结果部分"></a>结果部分</h1><ul>
+<li>CNN模型 写成基因的形式 444 4 0 444 复杂度 2628714486</li>
+<li>LSTM模型 复杂度 57344</li>
+<li>DNN acc: 0.9665764762056342 复杂度 6817762</li>
+<li>GNN 复杂度 54379585</li>
+<li>本模型 GNN+CNN 2683094071</li>
+<li>全连接网络模型</li>
+<li>优化的单独的CNN</li>
+<li>优化的单独的GNN</li>
+</ul>
+<ul>
+<li>五个模型的训练曲线 有无方向 和 有无正则化的 两种图线对比</li>
+<li>两个模块的遗传算法部分的结果</li>
+<li>表格展示结果</li>
+</ul>
+<h1 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h1><ul>
+<li>把D_1中的 ID的 220 部分 转换为数据集</li>
+<li>结果<ul>
+<li>使用ID220 D0训练 D1验证 精度 97% 0.9701388004584235</li>
+</ul>
+</li>
+</ul>
+<h1 id="DNN"><a href="#DNN" class="headerlink" title="DNN"></a>DNN</h1><ul>
+<li>这些功能的执行效率高、复杂度低，因为它们是通过网络直接从比特流生成的。该技术在离线训练特征的同时监测车辆网络中的交换数据包，并在我们的实验中提供了对攻击的实时响应，具有显著的高检测率。</li>
+<li>今天的车辆系统嵌入了许多称为电子控制单元（ECU）的计算机设备来控制和监控子系统【1】。ECU通过车内网络相互通信，以促进先进的汽车应用，如carputer和自动驾驶服务。控制器局域网（CAN）[2]提供了一种简单可靠的通信协议，作为车辆网络的设计标准，不仅连接传感器和控制器，而且连接互联网。随着车对车（V2V）和车对基础设施（V2I）通信接口的出现，CAN的采用加快了应用程序的速度[3]。然而，车辆系统的开放性增加了恶意网络攻击的风险，这些攻击可能会严重损害人的生命。车辆网络中的保护机制关注新的安全威胁。</li>
+</ul>
+<h1 id="卷积遗传算法部分"><a href="#卷积遗传算法部分" class="headerlink" title="卷积遗传算法部分"></a>卷积遗传算法部分</h1><ul>
+<li><p>交叉过后，有重复个体</p>
+</li>
+<li><p>2022-08-11 23:17:08 搜索损失函数</p>
+</li>
+</ul>
+<h1 id="关于写作时的问题"><a href="#关于写作时的问题" class="headerlink" title="关于写作时的问题"></a>关于写作时的问题</h1><ol>
+<li><p>论文中只有图坍缩部分出现坍缩过程的公式，因为只有这里有公式所以就保留着了，但是这里坍缩的过程是参考的之前的论文</p>
+<p>Y. Ma, S. Wang, C. C. Aggarwal, and J. Tang, “Graph Convolutional Networks with EigenPooling,” presented at the Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining, Anchorage, AK, USA, 2019. [Online]. Available: <a target="_blank" rel="noopener" href="https://doi.org/10.1145/3292500.3330982">https://doi.org/10.1145/3292500.3330982</a>.</p>
+<p>我把这篇论文中的方法运用到了构造的报文图数据的图坍缩分类过程。</p>
+<p>我的问题是是否可以保留这里的公式？</p>
+</li>
+<li><p>论文的</p>
+</li>
+</ol>
+<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><h2 id="NAS"><a href="#NAS" class="headerlink" title="NAS"></a>NAS</h2><ul>
+<li></li>
+</ul>
+<h2 id="图神经网络"><a href="#图神经网络" class="headerlink" title="图神经网络"></a>图神经网络</h2><ul>
+<li>遗传算法优化图网络<br>最近，神经架构搜索（NAS）吸引了越来越多的研究兴趣[2]。如图1所示，GNNs体系结构中有许多组件，如注意、聚合和激活功能，它们构成了图形神经网络的搜索空间。架构搜索算法从搜索空间中对组件的组合进行采样𝑆 例如{𝑔 𝑎𝑡,𝑠𝑢𝑚,𝑡𝑎𝑛ℎ, …} 在本例中，作为GNNs体系结构𝑠. 架构（architecture）𝑠 通过性能评估策略进一步评估。搜索算法使用估计的性能从搜索空间生成新的更好的GNNs体系结构𝑆. 最近，一些研究集中在图神经结构搜索问题上。</li>
+</ul>
+<h1 id="2022-08-18-修改论文"><a href="#2022-08-18-修改论文" class="headerlink" title="2022-08-18 修改论文"></a>2022-08-18 修改论文</h1><ul>
+<li>目前论文中使用到的演化算法部分是在神经架构搜索上，卷积网络，图神经网络架构搜索</li>
+<li>增加其他的演化算法应用场景，并加入改进思想</li>
+<li>演化算法是一种优化算法，求最优的算法</li>
+<li>我的目的是得到最优的神经网络架构，每次采样的最优数据长度（强化学习解决）</li>
+<li>在优化神经架构方面提出创新点</li>
+</ul>
+<h2 id="加入演化算法创新增加入侵检测率和降低模型复杂度"><a href="#加入演化算法创新增加入侵检测率和降低模型复杂度" class="headerlink" title="加入演化算法创新增加入侵检测率和降低模型复杂度"></a>加入演化算法创新增加入侵检测率和降低模型复杂度</h2><ul>
+<li>目前可以直接入手的改进是提升入侵识别精度（）—降低模型复杂度（）</li>
+<li>更好的提取图特征和二进制图像特征</li>
+<li>演化算法中的动态环境如何考虑</li>
+</ul>
+<h2 id="初始化子种群的创新"><a href="#初始化子种群的创新" class="headerlink" title="初始化子种群的创新"></a>初始化子种群的创新</h2><ul>
+<li>基于多个中心点初始化子种群</li>
+</ul>
+<h1 id="介绍部分"><a href="#介绍部分" class="headerlink" title="介绍部分"></a>介绍部分</h1><ul>
+<li>大体介绍图网络的应用和原理</li>
+</ul>
+<h1 id="多目标演化图神经-论文内容和参考"><a href="#多目标演化图神经-论文内容和参考" class="headerlink" title="(多目标演化图神经)论文内容和参考"></a>(多目标演化图神经)论文内容和参考</h1><ol>
+<li>搜索空间参考 2020-Neural Architecture Search in Graph Neural Networks</li>
+<li>添加跳跃连接  2020-AutoGraph Automated Graph Neural Network</li>
+</ol>
+<h1 id="自己论文"><a href="#自己论文" class="headerlink" title="自己论文"></a>自己论文</h1><h2 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h2><ol>
+<li>在自身个体发生交叉</li>
+<li>设计模块池，使用贝叶斯概率模型根据精英群体的模块排列特征选取每个基因，这里为了防止早熟可以设计两类群体，贝叶斯随机选择按照精英群体或者多样性群体的模块分布，多样性群体如何构建？汉明距离衡量两个个体的差异</li>
+<li>为了解决演化过程的个体评估效率问题，权重继承策略，优良的块和与其搭配的权重组合。之前的研究虽然也使用了贝叶斯概率评估</li>
+<li>因为神经架构的表现是和神经架构结构和网络权重相关，同时也和网络层级相关。为了进一步提升搜索架构的多样性，而且保持每层之间相同的架构也是不同的</li>
+<li>交叉或者变异不仅在同一个层的块发生，也可以在不同层级的块发生，可以得到更广阔的搜索空间，更有可能得到符合帕累托前沿的个体。<h2 id="研究必要性"><a href="#研究必要性" class="headerlink" title="研究必要性"></a>研究必要性</h2></li>
+<li>多场景的神经网络架构搜索的研究比较少 2021-Multiobjective Evolutionary Design of Deep  Convolutional Neural Networks for Image  Classification</li>
+<li>比较多的研究还是仅仅优化超参数或者连接  2021-Multiobjective Evolutionary Design of Deep  Convolutional Neural Networks for Image  Classification</li>
+<li>很少研究演化network level的研究，本研究的搜索空间可以调整图神经网络的深度，不仅可以调整深度，有个文章可以增加深度，我的工作还可以减少深度以提供更大的个体进化灵活性，增加了更多的可能。2021-Multiobjective Evolutionary Design of Deep  Convolutional Neural Networks for Image  Classification 参考的工作没有演化深度</li>
+<li>有的研究的存在跳跃连接，有的甚至没有跳跃连接，但是把跳跃连接加入搜索空间的工作非常少</li>
+<li>即使有个研究是多目标研究，但是仅仅只有两个目标，只能在复杂度和识别准确率的角度来tradeoff，此研究的目标不仅可以从模型复杂度和模型表现去选择模型，可以从召回率和精确率至今tradeoff来应对不同场景的需求，比之前的研究更大灵活自如。</li>
+<li>Multiobjective Evolutionary Design of Deep  Convolutional Neural Networks for Image  Classification使用贝叶斯利用历史信息只得到了Normal block的经验，是否多了之后不好处理</li>
+<li>The molecular datasets are diverse in terms of their molecular structure and properties. Consequently, a model trained for one molecular dataset cannot be transferred to another because of the non-Euclidean characteristics of the molecular structure data [10]. 分子数据集多样性，无法对一个分子的数据集训练模型转移到另一个模型</li>
+<li>传统的NAS大部分是单目标搜索，最近有一些工作使用NSGA2来优化两个目标，现在多目标变得越来越火热。多目标来适应多场景的需求。<h2 id="说明点"><a href="#说明点" class="headerlink" title="说明点"></a>说明点</h2></li>
+<li>变异不仅发生在操作，也发生在跳跃连接。在结构和操作层面都发生了变异。2021-Multiobjective Evolutionary Design of Deep  Convolutional Neural Networks for Image  Classification</li>
+<li>in which the offspring are intentionally created around the parents in the decision space. 变异发生在亲本决策变量附近发生</li>
+<li>因为是第一次使用图神经网络做入侵检测领域的研究，初始种群找不到成功的案例，所以使用随机初始化的方法初始化初始种群。2021-Multiobjective Evolutionary</li>
+<li>如果两个亲本都是来自于好的个体，那么就会反复利用好的个体的组件，会不会导致早熟并且丢失多样性。2021-Multiobjective Evolutionary</li>
+<li>2022-Evolutionary Search和2021-Multiobjective Evolutionary都提出了新的交叉方式，2022是交叉结构基因或者switch基因，2021是块（reduction块和normal块）交叉或者节点交叉</li>
+<li>当模型训练到一定程度，可以使用模型来采样个体（先随机采样操作类型，然后使用模型来确定操作的先后顺序生成个体）2021-Multiobjective Evolutionary 自己可以加入双存档，论文中模型只是从好的组件得到贝叶斯采样模型，是否可以使用双存档来训练贝叶斯（双贝叶斯）。</li>
+<li>有residual，但是不是任意的residual 2022-GNN-EA: Graph Neural Network with Evolutionary  Algorithm</li>
+<li>自己使用的池化操作并未进行搜索，也可以加入搜索空间（—未来工作）</li>
+<li>交叉过程亲本都是来自于精英个体，会难免发生早熟的现象。变异为了多样性的发展，但是变异概率常常非常低，可以根据双存档的两类个体来使用贝叶斯进行排列</li>
+<li>根据对统计的理解，数理统计存在<strong>概率学派</strong>与<strong>贝叶斯学派</strong>两种学派，他们之间的主要区别在于对于概率的理解方法不同。两个学派都各有优势，在一些简单并可以做出大量模拟的情况（例如预测抛硬币正反的概率分布）下，概率学派可以较为精确的获得某一事件的发生概率；在一些难以分析，很难模拟/大量采样的情况（例如地震概率的预测）下，贝叶斯学派则有极大的优势，可以使用有限的信息帮助我们做出合理的推断<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/137577138">https://zhuanlan.zhihu.com/p/137577138</a></li>
+</ol>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ol>
+<li>车辆入侵报文检测</li>
+<li>IP报文入侵</li>
+<li>android 入侵软件检测 2022-Android Malware Detection Using Supervised Deep Graph Representation Learning</li>
+</ol>
+<h2 id="探索点"><a href="#探索点" class="headerlink" title="探索点"></a>探索点</h2><ol>
+<li>2021-Multiobjective Evolutionary 使用了贝叶斯学习帕累托前沿组件的分布，只是计算了优秀组件的先后顺序排列，如何加入优秀的跳跃连接的学习？此研究的连接的搜索空间并不灵活。使用贝叶斯优化跳跃连接。使用贝叶斯学习优秀个体的连接方面的经验。所以我们研究的考虑了神经网络组件的排列顺序，跳跃连接，和权重三方面。并且每一层都有各自的组件池。同时我们的研究考虑了多场景。</li>
+<li>朴素贝叶斯假设属性之间相互独立，在实际中这种假设往往不成立。这给NBC朴素贝叶斯分类模型正确分类造成影响。从计算量上看，相比同精度的决策树而言，朴素贝叶斯分类器显然是更具有优势的。</li>
+<li>贝叶斯网络，如果只是已知大量数据样本，想要建立一个好的拓扑结构是一个典型的NP-Hard问题</li>
+</ol>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>进化算法也可以搜索通道剪枝网络 MetaPruning_Meta_Learning_for_Automatic_Neural_Network_Channel_Pruning</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">田山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2022/03/30/%E7%A7%91%E7%A0%94/%E8%AE%BA%E6%96%871%E7%AE%97%E6%B3%95/">http://example.com/2022/03/30/%E7%A7%91%E7%A0%94/%E8%AE%BA%E6%96%871%E7%AE%97%E6%B3%95/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">田山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/03/31/Linux/ssh%E4%BD%BF%E7%94%A8/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="ssh使用">
+                        
+                        <span class="card-title">ssh使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-31
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            田山
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/03/28/%E7%A7%91%E7%A0%94/%E8%AE%BA%E6%96%871%E6%96%87%E7%AB%A0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="论文1">
+                        
+                        <span class="card-title">论文1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            田山
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2023</span>
+            
+            <a href="/about" target="_blank">田山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "1";
+                        var startDate = "19";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:976362661@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=976362661" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 976362661" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
