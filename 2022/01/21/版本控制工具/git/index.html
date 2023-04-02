@@ -5,10 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="git, 田山de博客">
-    <meta name="description" content="使用关于分支
-删除本地分支和远程分支
-https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-and-remotely/
-2020年11月3">
+    <meta name="description" content="Git是目前世界上最先进的分布式版本控制系统。![[Pasted image 20230330173533.png]]
+使用关于分支删除分支https://chinese.freecodecamp.org/news/how-to-delet">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -513,36 +511,52 @@ https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-an
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="关于分支"><a href="#关于分支" class="headerlink" title="关于分支"></a>关于分支</h2><ul>
-<li>删除本地分支和远程分支<ul>
-<li><a target="_blank" rel="noopener" href="https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-and-remotely/">https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-and-remotely/</a></li>
-<li>2020年11月30日</li>
-</ul>
-</li>
-<li>切换分支<ul>
+                <p>Git是目前世界上最先进的分布式版本控制系统。<br>![[Pasted image 20230330173533.png]]</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="关于分支"><a href="#关于分支" class="headerlink" title="关于分支"></a>关于分支</h2><h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p><a target="_blank" rel="noopener" href="https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-and-remotely/">https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-and-remotely/</a><br>2020年11月30日</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 删除本地分支</span>
+<span class="token function">git</span> branch -d localBranchName
+<span class="token comment"># 删除远程分支</span>
+<span class="token function">git</span> push origin --delete remoteBranchName
+<span class="token comment"># 删除远程分支</span>
+<span class="token function">git</span> branch -r -d origin/branch-name  
+<span class="token function">git</span> push origin :branch-name
+<span class="token comment"># 删除本地分支里远程不存在的分支</span>
+<span class="token function">git</span> fetch --prune<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://chinese.freecodecamp.org/news/git-switch-branch/">https://chinese.freecodecamp.org/news/git-switch-branch/</a></li>
-<li>2021年4月21日</li>
+<li>2021年4月21日<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 可以使用它来创建新分支、退出分支、退出特定的 commit 等</span>
+<span class="token function">git</span> checkout master  <span class="token comment"># Switched to branch 'master'</span>
+<span class="token function">git</span> checkout - <span class="token comment"># switched to last branch</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ul>
-</li>
-<li>本地分支关联远程分支<ul>
+<h3 id="关联分支"><a href="#关联分支" class="headerlink" title="关联分支"></a>关联分支</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigben0123/p/13208286.html">https://www.cnblogs.com/bigben0123/p/13208286.html</a></li>
 <li>2020-06-29 15:40</li>
 <li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000039703878">https://segmentfault.com/a/1190000039703878</a></li>
 <li>2021-03-24</li>
 </ul>
-</li>
-</ul>
-<h2 id="关于仓库"><a href="#关于仓库" class="headerlink" title="关于仓库"></a>关于仓库</h2><ul>
-<li><p>查看关联的远程仓库地址</p>
-<ul>
-<li>```bash<br>git remote -v</li>
-</ul>
-</li>
-</ul>
+<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）</span>
+<span class="token function">git</span> branch -a
+<span class="token comment"># 查看本地分支和远程分支的关联</span>
+三选一
+<span class="token function">git</span> branch -vv
+<span class="token function">git</span> remote show origin
+<span class="token function">cat</span> .git/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h2 id="关于仓库"><a href="#关于仓库" class="headerlink" title="关于仓库"></a>关于仓库</h2><h3 id="仓库地址"><a href="#仓库地址" class="headerlink" title="仓库地址"></a>仓库地址</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> remote -v<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
 <h1 id="代理设置"><a href="#代理设置" class="headerlink" title="代理设置"></a>代理设置</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://gist.github.com/laispace/666dd7b27e9116faece6">https://gist.github.com/laispace/666dd7b27e9116faece6</a></li>
-<li></li>
 </ol>
+<h1 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h1><h2 id="新建分支"><a href="#新建分支" class="headerlink" title="新建分支"></a>新建分支</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 本地会新建一个分支名叫 branch_name ，会自动跟踪远程的同名分支 branch_name</span>
+<span class="token comment"># 远程新建了一个分支，本地没有该分支</span>
+<span class="token function">git</span> checkout --track origin/branch_name
+<span class="token comment"># 本地新建了一个分支 branch_name，但是在远程没有</span>
+<span class="token function">git</span> push --set-upstream origin new_branch_name  <span class="token comment"># 在远程新建分支</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="切换分支-1"><a href="#切换分支-1" class="headerlink" title="切换分支"></a>切换分支</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> checkout branch_name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
                 
             </div>
@@ -782,13 +796,13 @@ https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-an
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/01/28/DeepLearning/transformer/">
+                <a href="/2022/01/21/WebSite/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="transformer">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="网站建设">
                         
-                        <span class="card-title">transformer</span>
+                        <span class="card-title">网站建设</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -799,7 +813,7 @@ https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-an
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-21
                         </span>
                         <span class="publish-author">
                             
@@ -819,13 +833,13 @@ https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-an
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/01/21/WebSite/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">
+                <a href="/2022/01/21/Download/%E4%B8%83%E7%89%9B%E4%BA%91/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="网站建设">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="七牛云">
                         
-                        <span class="card-title">网站建设</span>
+                        <span class="card-title">七牛云</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -840,11 +854,23 @@ https://chinese.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-an
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            田山
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%91%E5%AD%98%E5%82%A8/" class="post-category">
+                                    云存储
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%91/">
+                        <span class="chip bg-color">云</span>
+                    </a>
+                    
                 </div>
                 
             </div>

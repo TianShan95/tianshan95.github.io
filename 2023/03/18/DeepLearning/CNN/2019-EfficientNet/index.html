@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Bash-if 判断符号, 田山de博客">
-    <meta name="description" content="-eq       //等于-ne       //不等于-gt        //大于 （greater）-lt         //小于 （less）-ge       //大于等于-le        //小于等于
-逻辑与：    &amp;">
+    <meta name="keywords" content="2019-EfficientNet, 田山de博客">
+    <meta name="description" content="EfficientNet是一种基于自动缩放和神经网络结构搜索的新型卷积神经网络，它使用了一种新的方法来自动调整网络的深度、宽度和分辨率，以提高模型的精度和效率。EfficientNet在多个图像分类任务上都取得了当前最好的性能，成为了目前最">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Bash-if 判断符号 | 田山de博客</title>
+    <title>2019-EfficientNet | 田山de博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -354,12 +353,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Bash-if 判断符号</h1>
+                    <h1 class="description center-align post-title">2019-EfficientNet</h1>
                 </div>
             </div>
         </div>
@@ -487,7 +486,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-03-15
+                    2023-03-18
                 </div>
                 
 
@@ -511,13 +510,17 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>-eq       //等于<br>-ne       //不等于<br>-gt        //大于 （greater）<br>-lt         //小于 （less）<br>-ge       //大于等于<br>-le        //小于等于</p>
-<p>逻辑与：    &amp;&amp;<br>第一个条件为假时，第二个条件不用再判断，最终结果已经有；<br>第一个条件为真时，第二个条件必须得判断。<br>逻辑或：    ||<br>逻辑非:       !</p>
+                <p>EfficientNet是一种基于自动缩放和神经网络结构搜索的新型卷积神经网络，它使用了一种新的方法来自动调整网络的深度、宽度和分辨率，以提高模型的精度和效率。EfficientNet在多个图像分类任务上都取得了当前最好的性能，成为了目前最为流行的卷积神经网络之一。<br>这些结合了其他模型的新网络，都采用了一些新的方法和思想，以提高模型的性能和效率，得到了广泛的应用。<br>EfficientNet是一种高效的神经网络架构，由Google Brain团队在2019年提出。它通过在不同的网络深度、宽度和分辨率下进行组合来提高性能，同时保持计算和参数的效率。</p>
+<p>EfficientNet的基本架构是MobileNetV2，但加入了一种新的方法，即利用复合缩放系数（compound scaling）来控制模型的深度、宽度和分辨率。这个方法使用一个复合系数来缩放网络的深度、宽度和分辨率，从而得到一个更加高效的网络架构。同时，EfficientNet还使用了一种新的深度和宽度的自动化调整方法，可以根据硬件资源来选择最优的网络结构。</p>
+<p>EfficientNet在多个图像分类、目标检测和分割任务中都取得了很好的性能表现，并且在计算和参数效率方面具有明显优势。</p>
+<p>EfficientNet的网络框架主要由卷积层、批归一化层、激活函数和池化层构成，其中主要包括以下几个部分：</p>
 <ol>
-<li>shell中如果是等于、不等于，既可以用 -eq、-ne （外面需要加中括号），也可以用 == 、!=（外面加中括号或双括号都行）</li>
-<li>shell中如果是大于，大于等于，小于，小于等于，用 -gt, -ge,-lt,-le 的话，则需要加中括号</li>
-<li><strong>shell中大于、大于等于，小于，小于等于想用 &gt;,&gt;=,&lt;,&lt;=，则需要加双括号，而不是中括号</strong></li>
+<li> 卷积部分：EfficientNet采用了一种特殊的卷积操作——深度可分离卷积（Depthwise Separable Convolution），它将标准卷积拆分成两个部分，即深度卷积和逐点卷积。这种操作能够显著减少计算量，并提高模型的准确率。</li>
+<li> 缩放部分：EfficientNet在卷积部分之后加入了一些缩放操作，这些操作主要包括Squeeze-and-Excitation模块和Swish激活函数。Squeeze-and-Excitation模块通过学习通道权重来提高模型的表达能力，而Swish激活函数则比常用的ReLU激活函数表现更好。</li>
+<li> 池化部分：EfficientNet采用了一种自适应池化操作——Global Average Pooling（GAP），它能够将输入张量的每个通道的所有元素求平均，并输出一个张量。GAP能够减少模型的参数数量和计算量，同时还能够提高模型的泛化能力。</li>
+<li> 全连接部分：EfficientNet采用了一些全连接层来将卷积部分的输出转换为最终的分类结果。</li>
 </ol>
+<p>总体来说，EfficientNet的框架图与其他卷积神经网络类似，但其采用了深度可分离卷积和缩放操作等特殊的技术，使得模型更加轻量级且性能更加优秀。</p>
 
                 
             </div>
@@ -534,7 +537,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">田山</a>
+                    <a href="/about" rel="external nofollow noreferrer">TianShan</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -544,7 +547,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/03/15/Bash/Bash-if%20%E5%88%A4%E6%96%AD%E7%AC%A6%E5%8F%B7/">http://example.com/2023/03/15/Bash/Bash-if%20%E5%88%A4%E6%96%AD%E7%AC%A6%E5%8F%B7/</a>
+                    <a href="http://example.com/2023/03/18/DeepLearning/CNN/2019-EfficientNet/">http://example.com/2023/03/18/DeepLearning/CNN/2019-EfficientNet/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -557,7 +560,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">田山</a>
+                    <a href="/about" target="_blank">TianShan</a>
                     !
                 </span>
             </div>
@@ -757,13 +760,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/15/Bash/Bash-grep/">
+                <a href="/2023/03/18/DeepLearning/CNN/2021-EfficientNetV2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Bash-grep">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="2019-EfficientNet">
                         
-                        <span class="card-title">Bash-grep</span>
+                        <span class="card-title">2019-EfficientNet</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -774,12 +777,12 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-18
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            田山
+                            TianShan
                             
                         </span>
                     </div>
@@ -794,13 +797,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/15/Bash/Bash-sed/">
+                <a href="/2023/03/18/DeepLearning/CNN/2017-ResNeXt/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Bash-sed">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="2017-ResNeXt">
                         
-                        <span class="card-title">Bash-sed</span>
+                        <span class="card-title">2017-ResNeXt</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -811,12 +814,12 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-18
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            田山
+                            TianShan
                             
                         </span>
                     </div>

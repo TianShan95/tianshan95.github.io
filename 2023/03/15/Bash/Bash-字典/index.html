@@ -7,9 +7,8 @@
     <meta name="keywords" content="Bash-字典, 田山de博客">
     <meta name="description" content="
 查看字典里某个键名是否存在if [ -v dic[&#34;key1&#34;] ]; then echo &#34;key1 exists in dic&#34; fi
-遍历字典for key in &#34;$&amp;#123;!dic[*]&amp;#125;&#34;
-do
-	echo &#34;$">
+# 不一定管用，可以使用：
+if [ dic[&#34;key1&#34;] ]; then echo &#34;key1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -515,7 +514,9 @@ do
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <ol>
-<li>查看字典里某个键名是否存在<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token keyword">if</span> <span class="token punctuation">[</span> -v dic<span class="token punctuation">[</span><span class="token string">"key1"</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token builtin class-name">echo</span> <span class="token string">"key1 exists in dic"</span> <span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>查看字典里某个键名是否存在<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token keyword">if</span> <span class="token punctuation">[</span> -v dic<span class="token punctuation">[</span><span class="token string">"key1"</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token builtin class-name">echo</span> <span class="token string">"key1 exists in dic"</span> <span class="token keyword">fi</span>
+<span class="token comment"># 不一定管用，可以使用：</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> dic<span class="token punctuation">[</span><span class="token string">"key1"</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token builtin class-name">echo</span> <span class="token string">"key1 exists in dic"</span> <span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 <li>遍历字典<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token keyword">for</span> <span class="token for-or-select variable">key</span> <span class="token keyword">in</span> <span class="token string">"<span class="token variable">$&#123;<span class="token operator">!</span>dic<span class="token punctuation">[</span>*<span class="token punctuation">]</span>&#125;</span>"</span>
 <span class="token keyword">do</span>
 	<span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$key</span> - <span class="token variable">$&#123;dic<span class="token punctuation">[</span>*<span class="token punctuation">]</span>&#125;</span>"</span>
@@ -768,13 +769,13 @@ do
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/15/Bash/Bash-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C/">
+                <a href="/2023/03/15/Bash/Bash-tr/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Bash-字符串操作">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Bash-tr">
                         
-                        <span class="card-title">Bash-字符串操作</span>
+                        <span class="card-title">Bash-tr</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -805,13 +806,13 @@ do
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/15/Bash/Bash-%E6%95%B0%E7%BB%84/">
+                <a href="/2023/03/15/Bash/Bash-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Bash-数组">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Bash-字符串操作">
                         
-                        <span class="card-title">Bash-数组</span>
+                        <span class="card-title">Bash-字符串操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
